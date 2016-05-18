@@ -10,7 +10,7 @@ var bounds = [
 var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mslee/ciod14n04007aaqm7iun2scux',
-  hash: true,
+  // hash: true,
   zoom: 1.50,
   center: [-57.1,45.4],
   // maxBounds: bounds
