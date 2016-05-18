@@ -1,5 +1,6 @@
 var fs = require('fs');
 var mapboxgl = require('mapbox-gl');
+var data = require('./data.js');
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg';
 var bounds = [
@@ -17,22 +18,30 @@ var map = new mapboxgl.Map({
 
 map.on('load', function () {
   var sourceObj = new mapboxgl.GeoJSONSource({
-    data: "assets/renders.geojson"
+    data: "assets/renders.geojson"  // mslee.5jzf6k3f
   });
-
   map.addSource("markers", sourceObj);
 
-  map.addLayer({
-      "id": "markers",
+  // loop thru each layer from data source
+  data.forEach(function(layer, k) {
+    // console.log(layer.layout);
+
+    map.addLayer({ // add values in each layer
+      "id": layer.id,
       "type": "symbol",
       "source": "markers",
       "layout": {
-          "text-field": "{field}",
-          "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-          "text-offset": [0, 0.6],
-          "text-anchor": "top"
-      }
+        "text-field": layer.id,
+        "text-font": ["DIN Offc Pro Regular", "Arial Unicode MS Bold"],
+        "text-offset": [0, 0.6],
+        "text-anchor": "top-left"
+        }
+    })
+
+    map.setFilter(layer.id, ['==', 'field', 'item' + k]);
   });
 
   map.scrollZoom.disable();
 });
+
+

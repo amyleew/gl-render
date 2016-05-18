@@ -42387,7 +42387,8 @@ var _ = require('underscore-node');
 var style = require('../assets/satellite-streets-v9.json');
 
 // check this style
-var storage = {}; // storage array for layers
+var storage = []; // storage array for layers
+var names = []; // storing the names for the layers
 var allLayers = style.layers;
 allLayers.forEach(function(layer) { // remove the objects from array
   // console.log(layer);
@@ -42398,21 +42399,23 @@ allLayers.forEach(function(layer) { // remove the objects from array
       if(filtering.indexOf('==')) {
         var number = filtering.indexOf('==');
         if(filtering[number + 1] === 'type' && filtering[number + 2] === 'city') {
-          storage = layer;
-          console.log(storage);
+          storage.push(layer);
+          names.push('City');
+          // console.log(layer.layout['text-size'].stops.length);
         }
       }
     }
   }
 });
-},{"../assets/satellite-streets-v9.json":1,"fs":3,"underscore-node":171}],185:[function(require,module,exports){
-// var test = require('tape');
-var fs = require('fs');
-// var _ = require('underscore-node');
 
-// // map shit
-// var requirejs = require('requirejs');
+
+module.exports = names;
+module.exports = storage;
+},{"../assets/satellite-streets-v9.json":1,"fs":3,"underscore-node":171}],185:[function(require,module,exports){
+var fs = require('fs');
 var mapboxgl = require('mapbox-gl');
+var data = require('./data.js');
+
 mapboxgl.accessToken = 'pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg';
 var bounds = [
   [-152.2265625, -2.460181181020993], //SW
@@ -42427,45 +42430,34 @@ var map = new mapboxgl.Map({
   maxBounds: bounds
 });
 
-// check this style
-// var storage = {}; // storage array for layers
-// var style = mapboxGL.styles['satellite-streets-v9'];
-// var allLayers = style.layers;
-// allLayers.forEach(function(layer) { // remove the objects from array
-//   var source = layer['source-layer'];
-//   if(source !== undefined) {
-//     if(source.indexOf('place_label') !== -1) {
-//       var filtering = _.flatten(layer.filter);
-//       if(filtering.indexOf('==')) {
-//         var number = filtering.indexOf('==');
-//         if(filtering[number + 1] === 'type' && filtering[number + 2] === 'city') {
-//           storage = layer;
-//           console.log(storage);
-//         }
-//       }
-//     }
-//   }
-// });
-
 map.on('load', function () {
   var sourceObj = new mapboxgl.GeoJSONSource({
-    data: "assets/renders.geojson"
+    data: "assets/renders.geojson"  // mslee.5jzf6k3f
   });
-
   map.addSource("markers", sourceObj);
 
-  map.addLayer({
-      "id": "markers",
+  // loop thru each layer from data source
+  data.forEach(function(layer, k) {
+    // console.log(layer.layout);
+
+    map.addLayer({ // add values in each layer
+      "id": layer.id,
       "type": "symbol",
       "source": "markers",
       "layout": {
-          "text-field": "{field}",
-          "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-          "text-offset": [0, 0.6],
-          "text-anchor": "top"
-      }
+        "text-field": layer.id,
+        "text-font": ["DIN Offc Pro Regular", "Arial Unicode MS Bold"],
+        "text-offset": [0, 0.6],
+        "text-anchor": "top-left"
+        }
+    })
+
+    map.setFilter(layer.id, ['==', 'field', 'item' + k]);
   });
 
   map.scrollZoom.disable();
 });
-},{"fs":3,"mapbox-gl":72}]},{},[184,185]);
+
+
+
+},{"./data.js":184,"fs":3,"mapbox-gl":72}]},{},[184,185]);
