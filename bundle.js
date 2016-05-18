@@ -42427,7 +42427,7 @@ var map = new mapboxgl.Map({
   hash: true,
   zoom: 1.50,
   center: [-57.1,45.4],
-  maxBounds: bounds
+  // maxBounds: bounds
 });
 
 map.on('load', function () {
@@ -42439,6 +42439,23 @@ map.on('load', function () {
   // loop thru each layer from data source
   data.forEach(function(layer, k) {
     // console.log(layer.layout);
+    var textSizes = layer.layout['text-size'].stops;
+    var textBase = layer.layout['text-size'].base;
+    var textValues = {};
+    var textValuesArray = [];
+    if(textSizes.length > 1) { // save all the diff sizes set
+      for(i=0; i < textSizes.length; i++) {
+        textValues.id = layer.id;
+        textValues.layer = textSizes[i][0];
+        textValues.font = textSizes[i][1];
+        textValuesArray.push({
+          "id": textValues.id,
+          "layer": textValues.layer,
+          "font": textValues.font
+        });
+      }
+    }
+    console.log(textValuesArray);
 
     map.addLayer({ // add values in each layer
       "id": layer.id,
@@ -42448,14 +42465,27 @@ map.on('load', function () {
         "text-field": layer.id,
         "text-font": ["DIN Offc Pro Regular", "Arial Unicode MS Bold"],
         "text-offset": [0, 0.6],
-        "text-anchor": "top-left"
+        "text-anchor": "top-left",
+        "text-size": {
+          "base": 1,
+          "stops": [
+            [
+              textValuesArray[1].layer,
+              textValuesArray[1].font
+            ],
+            [
+              textValuesArray[1].layer,
+              textValuesArray[1].font
+            ]
+          ]
         }
+      }
     })
 
     map.setFilter(layer.id, ['==', 'field', 'item' + k]);
   });
 
-  map.scrollZoom.disable();
+  // map.scrollZoom.disable();
 });
 
 
