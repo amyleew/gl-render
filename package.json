@@ -1,0 +1,19 @@
+{
+  "name": "styleguide",
+  "version": "1.0.0",
+  "description": "building styleguide renderer for gl styles",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test",
+    "build": "browserify src/*.js -o bundle.js"
+  },
+  "author": "amy lee walton",
+  "license": "ISC",
+  "devDependencies": {
+    "browserify": "^13.0.1",
+    "underscore-node": "^0.1.2"
+  },
+  "dependencies": {
+    "mapbox-gl": "^0.18.0"
+  }
+}
