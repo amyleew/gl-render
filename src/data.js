@@ -26,14 +26,14 @@ allLayers.forEach(function(layer) { // remove the objects from array
             storage.push(layer);
             names.push('Village');
           }
-          // if(filtering[2] === 'hamlet') {
-          //   storage.push(layer);
-          //   names.push('Hamlet');
-          // }
-          // if(filtering[2] === 'suburb') {
-          //   storage.push(layer);
-          //   names.push('Suburb');
-          // }
+          if(filtering[2] === 'hamlet') {
+            storage.push(layer);
+            names.push('Hamlet');
+          }
+          if(filtering[2] === 'suburb') {
+            storage.push(layer);
+            names.push('Suburb');
+          }
           if(filtering[2] === 'neighbourhood') {
             storage.push(layer);
             names.push('Neighbourhood');
