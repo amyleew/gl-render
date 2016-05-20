@@ -1,8 +1,8 @@
 var fs = require('fs');
 var mapboxgl = require('mapbox-gl');
 var data = require('./data.js');
-
-// console.log(data);
+// console.log(data.length);
+var added = false; // make sure data is all layered before filtering
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg';
 var bounds = [
@@ -27,7 +27,9 @@ map.on('load', function () {
 
   // loop thru each layer from data source
   data.forEach(function(layer, k) {
-    // text-size values -- function to pass in the 'text-size' and remove hypen?
+    added = false;
+    
+    // ADD ALLL THE DATA TO VALUES
     var textSize = layer.layout['text-size'].stops;
     var textSizeBase = layer.layout['text-size'].base;
     var textSizeValues = {};
@@ -35,67 +37,70 @@ map.on('load', function () {
     if(textSize.length > 1) { // save all the diff sizes set
       for(i=0; i < textSize.length; i++) {
         textSizeValues.id = layer.id;
-        textSizeValues.layer = textSize[i][0];
+        textSizeValues.zoom = textSize[i][0];
         textSizeValues.font = textSize[i][1];
         textSizeValuesArray.push({
           "id": textSizeValues.id,
-          "layer": textSizeValues.layer,
-          "font": textSizeValues.font
+          "zoom": parseFloat(textSizeValues.zoom),
+          "font": parseFloat(textSizeValues.font)
         });
       }
+    } else {
+      // console.log(textSize.length);
     }
     // text-font values
     var textFont = layer.layout['text-font'].stops;
     var textFontBase = layer.layout['text-font'].base;
     var textFontValues = {};
     var textFontValuesArray = [];
-    if(textFont.length > 1) { // save all the diff Fonts set
-      for(i=0; i < textFont.length; i++) {
-        textFontValues.id = layer.id;
-        textFontValues.layer = textFont[i][0];
-        textFontValues.font = textFont[i][1];
-        textFontValuesArray.push({
-          "id": textFontValues.id,
-          "layer": textFontValues.layer,
-          "font": textFontValues.font
-        });
+    var textFont1; // for the strings
+    var textFont2;
+    if(textFont !== undefined) {
+      // console.log(layer.id + ' ' + textFont.length);
+      if(textFont.length > 1) { // save all the diff Fonts set
+        for(i=0; i < textFont.length; i++) {
+          textFontValues.id = layer.id;
+          textFontValues.zoom = textFont[i][0];
+          textFontValues.font = textFont[i][1];
+          textFontValuesArray.push({
+            "id": textFontValues.id,
+            "zoom": textFontValues.zoom,
+            "font": textFontValues.font
+          });
+        }
       }
+    } else { // these items only have one set of fontstacks
+      // console.log(layer.id + ' only have one fontstack');
+      textFont = layer.layout['text-font'];
+      textFont1 = textFont[0].toString();
+      textFont2 = textFont[1].toString();
+      textFontValuesArray = undefined;
     }
-    // text-offset values
-    var textOffset = layer.layout['text-offset'].stops;
-    var textOffsetBase = layer.layout['text-offset'].base;
-    var textOffsetValues = {};
-    var textOffsetValuesArray = [];
-    if(textOffset.length > 1) { // save all the diff Offsets set
-      for(i=0; i < textOffset.length; i++) {
-        textOffsetValues.id = layer.id;
-        textOffsetValues.layer = textOffset[i][0];
-        textOffsetValues.font = textOffset[i][1];
-        textOffsetValuesArray.push({
-          "id": textOffsetValues.id,
-          "layer": textOffsetValues.layer,
-          "font": textOffsetValues.font
-        });
-      }
-    }
-    // text-letter-spacing values
     var textLetterSpacing  = layer.layout['text-letter-spacing'];
     var textLetterSpacingBase;
     var textLetterSpacingValues = {};
     var textLetterSpacingValuesArray = [];
     if(textLetterSpacing !== undefined) {
-      textLetterSpacing = layer.layout['text-letter-spacing'].stops;
-      textLetterSpacingBase = layer.layout['text-letter-spacing'].base;
-      for(i=0; i < textLetterSpacing.length; i++) {
-        textLetterSpacingValues.id = layer.id;
-        textLetterSpacingValues.layer = textLetterSpacing[i][0];
-        textLetterSpacingValues.font = textLetterSpacing[i][1];
-        textLetterSpacingValuesArray.push({
-          "id": textLetterSpacingValues.id,
-          "layer": textLetterSpacingValues.layer,
-          "font": textLetterSpacingValues.font
-        });
-      }
+      if(textLetterSpacing.length !== undefined) {
+        textLetterSpacing = layer.layout['text-letter-spacing'].stops;
+        textLetterSpacingBase = layer.layout['text-letter-spacing'].base;
+        for(i=0; i < textLetterSpacing.length; i++) {
+          textLetterSpacingValues.id = layer.id;
+          textLetterSpacingValues.zoom = textLetterSpacing[i][0];
+          textLetterSpacingValues.font = textLetterSpacing[i][1];
+          textLetterSpacingValuesArray.push({
+            "id": textLetterSpacingValues.id,
+            "zoom": textLetterSpacingValues.zoom,
+            "font": textLetterSpacingValues.font
+          });
+        }
+      } else {// these items only have one text-letterspacing
+      // console.log(layer.id + ' only has one text-letter-spacing');
+      textLetterSpacing = parseFloat(layer.layout['text-offset']);
+      textLetterSpacing1 = textLetterSpacing[0];
+      textLetterSpacing2 = textLetterSpacing[1];
+      textLetterSpacingValuesArray = undefined;
+        }
     }
     // gather text-color values
     var textColor = layer.paint['text-color'];
@@ -109,11 +114,11 @@ map.on('load', function () {
       textHaloColorBase = layer.paint['text-halo-color'].base;
       for(i=0; i < textHaloColor.length; i++) {
         textHaloColorValues.id = layer.id;
-        textHaloColorValues.layer = textHaloColor[i][0];
+        textHaloColorValues.zoom = textHaloColor[i][0];
         textHaloColorValues.font = textHaloColor[i][1];
         textHaloColorValuesArray.push({
           "id": textHaloColorValues.id,
-          "layer": textHaloColorValues.layer,
+          "zoom": parseFloat(textHaloColorValues.zoom),
           "font": textHaloColorValues.font
         });
       }
@@ -123,8 +128,9 @@ map.on('load', function () {
     // gather text-halo-blur values
     var textHaloBlur = layer.paint['text-halo-blur'];
 
-    if(textLetterSpacing !== undefined && textHaloColor !== undefined) {
-
+    // START ADDING LAYERS
+    if(textSizeValuesArray !== undefined && textFontValuesArray !== undefined && textLetterSpacingValuesArray !== undefined && textHaloColorValuesArray !== undefined) {
+    added = true;
       map.addLayer({ // add values in each layer
         "id": layer.id,
         "type": "symbol",
@@ -135,36 +141,17 @@ map.on('load', function () {
             "base": textFontBase,
             "stops": [
               [
-                textFontValuesArray[0].layer,
+                textFontValuesArray[0].zoom,
                 [
                   textFontValuesArray[0].font[0],
                   textFontValuesArray[0].font[1]
                 ]
               ],
               [
-                textFontValuesArray[1].layer,
+                textFontValuesArray[1].zoom,
                 [
                   textFontValuesArray[1].font[0],
                   textFontValuesArray[1].font[1]
-                ]
-              ]
-            ]
-          },
-          "text-offset": {
-            "base": textOffsetBase,
-            "stops": [
-              [
-                textOffsetValuesArray[0].layer,
-                [
-                  textOffsetValuesArray[0].font[0],
-                  textOffsetValuesArray[0].font[1]
-                ]
-              ],
-              [
-                textOffsetValuesArray[1].layer,
-                [
-                  textOffsetValuesArray[1].font[0],
-                  textOffsetValuesArray[1].font[1]
                 ]
               ]
             ]
@@ -174,28 +161,15 @@ map.on('load', function () {
             "base": textSizeBase,
             "stops": [
               [
-                textSizeValuesArray[0].layer,
+                textSizeValuesArray[0].zoom,
                 textSizeValuesArray[0].font
               ],
               [
-                textSizeValuesArray[1].layer,
+                textSizeValuesArray[1].zoom,
                 textSizeValuesArray[1].font
               ]
             ]
           },
-          "text-letter-spacing": {
-            "base": textLetterSpacingBase,
-            "stops": [
-              [
-                textLetterSpacingValuesArray[0].layer,
-                textLetterSpacingValuesArray[0].font
-              ],
-              [
-                textLetterSpacingValuesArray[1].layer,
-                textLetterSpacingValuesArray[1].font
-              ]
-            ]
-          }
         },
         "paint": {
           "text-halo-width": textHaloWidth,
@@ -203,11 +177,11 @@ map.on('load', function () {
             "base": textHaloColorBase,
             "stops": [
               [
-                textHaloColorValuesArray[0].layer,
+                textHaloColorValuesArray[0].zoom,
                 textHaloColorValuesArray[0].font
               ],
               [
-                textHaloColorValuesArray[1].layer,
+                textHaloColorValuesArray[1].zoom,
                 textHaloColorValuesArray[1].font
               ]
             ]
@@ -215,90 +189,124 @@ map.on('load', function () {
           "text-color": textColor,
           "text-halo-blur": textHaloBlur
         }
-      })
-    } else { // if there is no text-letter-spacing value set
-      map.addLayer({ // add values in each layer
-        "id": layer.id,
-        "type": "symbol",
-        "source": "markers",
-        "layout": {
-          "text-field": layer.id,
-          "text-font":{
-            "base": textFontBase,
-            "stops": [
-              [
-                textFontValuesArray[0].layer,
-                [
-                  textFontValuesArray[0].font[0],
-                  textFontValuesArray[0].font[1]
-                ]
-              ],
-              [
-                textFontValuesArray[1].layer,
-                [
-                  textFontValuesArray[1].font[0],
-                  textFontValuesArray[1].font[1]
-                ]
-              ]
-            ]
-          },
-          "text-offset": {
-            "base": textOffsetBase,
-            "stops": [
-              [
-                textOffsetValuesArray[0].layer,
-                [
-                  textOffsetValuesArray[0].font[0],
-                  textOffsetValuesArray[0].font[1]
-                ]
-              ],
-              [
-                textOffsetValuesArray[1].layer,
-                [
-                  textOffsetValuesArray[1].font[0],
-                  textOffsetValuesArray[1].font[1]
-                ]
-              ]
-            ]
-          },
-          "text-anchor": "top-left", // keep as is for placement on styleguide
-          "text-size": {
-            "base": textSizeBase,
-            "stops": [
-              [
-                textSizeValuesArray[0].layer,
-                textSizeValuesArray[0].font
-              ],
-              [
-                textSizeValuesArray[1].layer,
-                textSizeValuesArray[1].font
-              ]
-            ]
-          }
-        },
-        "paint": {
-          "text-halo-width": textHaloWidth,
-          "text-halo-color": {
-            "base": textHaloColorBase,
-            "stops": [
-              [
-                textHaloColorValuesArray[0].layer,
-                textHaloColorValuesArray[0].font
-              ],
-              [
-                textHaloColorValuesArray[1].layer,
-                textHaloColorValuesArray[1].font
-              ]
-            ]
-          },
-          "text-color": textColor,
-          "text-halo-blur": textHaloBlur
-        }
-      })
+      });
     }
-    map.setFilter(layer.id, ['==', 'field', 'item' + k]);
-  });
+    if(textSizeValuesArray !== undefined && textFontValuesArray === undefined && textLetterSpacingValuesArray === undefined && textHaloColorValuesArray !== undefined) {
+      added = true;
+      map.addLayer({ // add values in each layer
+        "id": layer.id,
+        "type": "symbol",
+        "source": "markers",
+        "layout": {
+          "text-field": layer.id,
+          "text-font": [
+            textFont1,
+            textFont2
+          ],
+          "text-anchor": "top-left", // keep as is for placement on styleguide
+          "text-size": {
+            "base": textSizeBase,
+            "stops": [
+              [
+                textSizeValuesArray[0].zoom,
+                textSizeValuesArray[0].font
+              ],
+              [
+                textSizeValuesArray[1].zoom,
+                textSizeValuesArray[1].font
+              ]
+            ]
+          },
+        },
+        "paint": {
+          "text-halo-width": textHaloWidth,
+          "text-halo-color": {
+            "base": textHaloColorBase,
+            "stops": [
+              [
+                textHaloColorValuesArray[0].zoom,
+                textHaloColorValuesArray[0].font
+              ],
+              [
+                textHaloColorValuesArray[1].zoom,
+                textHaloColorValuesArray[1].font
+              ]
+            ]
+          },
+          "text-color": textColor,
+          "text-halo-blur": textHaloBlur
+        }
+      });
+    }
 
+    if(layer.id === 'place-city-sm') {
+      added = true;
+      map.addLayer({ // add values in each layer
+        "id": layer.id,
+        "type": "symbol",
+        "source": "markers",
+        "layout": {
+          "text-field": layer.id,
+          "text-font":{
+            "base": textFontBase,
+            "stops": [
+              [
+                textFontValuesArray[0].zoom,
+                [
+                  textFontValuesArray[0].font[0],
+                  textFontValuesArray[0].font[1]
+                ]
+              ],
+              [
+                textFontValuesArray[1].zoom,
+                [
+                  textFontValuesArray[1].font[0],
+                  textFontValuesArray[1].font[1]
+                ]
+              ]
+            ]
+          },
+          "text-anchor": "top-left", // keep as is for placement on styleguide
+          "text-size": {
+            "base": textSizeBase,
+            "stops": [
+              [
+                textSizeValuesArray[0].zoom,
+                textSizeValuesArray[0].font
+              ],
+              [
+                textSizeValuesArray[1].zoom,
+                textSizeValuesArray[1].font
+              ]
+            ]
+          },
+        },
+        "paint": {
+          "text-halo-width": textHaloWidth,
+          "text-halo-color": {
+            "base": textHaloColorBase,
+            "stops": [
+              [
+                textHaloColorValuesArray[0].zoom,
+                textHaloColorValuesArray[0].font
+              ],
+              [
+                textHaloColorValuesArray[1].zoom,
+                textHaloColorValuesArray[1].font
+              ]
+            ]
+          },
+          "text-color": textColor,
+          "text-halo-blur": textHaloBlur
+        }
+      });
+    }
+    for(n = 0; n < data.length + 1; n++) {
+      if(added) {
+        map.setFilter(layer.id, ['==', 'field', 'item' + k]);
+      }
+    }
+  });
   // map.scrollZoom.disable();
 });
 
