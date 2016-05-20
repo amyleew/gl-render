@@ -42463,7 +42463,7 @@ allLayers.forEach(function(layer) { // remove the objects from array
       }
     }
   } else {
-    console.log('data.js skipped this layer with ref: ' + layer.id);
+    // console.log('data.js skipped this layer with ref: ' + layer.id);
   }
 });
 
@@ -42544,7 +42544,7 @@ map.on('load', function () {
           }
         }
       } else { // these items only have one set of fontstacks
-        console.log(layer.id + ' only have one fontstack');
+        // console.log(layer.id + ' only have one fontstack');
         textFont = layer.layout['text-font'];
         textFont1 = textFont[0].toString();
         textFont2 = textFont[1].toString();
@@ -42569,7 +42569,7 @@ map.on('load', function () {
           }
         }
       } else { // these items only have one text-offset
-        console.log(layer.id + ' only has one text-offset');
+        // console.log(layer.id + ' only has one text-offset');
         textOffset = layer.layout['text-offset'];
         textOffset1 = parseFloat(textOffset[0]);
         textOffset2 = parseFloat(textOffset[1]);
@@ -42595,7 +42595,7 @@ map.on('load', function () {
             });
           }
         } else {// these items only have one text-letterspacing
-        console.log(layer.id + ' only has one text-letter-spacing');
+        // console.log(layer.id + ' only has one text-letter-spacing');
         textLetterSpacing = parseFloat(layer.layout['text-offset']);
         textLetterSpacing1 = textLetterSpacing[0];
         textLetterSpacing2 = textLetterSpacing[1];
@@ -42632,7 +42632,7 @@ map.on('load', function () {
       // TEXT-OFFSET IS FUNCTION ... need textFontValues  textLetterSpacing and textHaloColor
       if(textSizeValuesArray !== undefined && textFontValuesArray !== undefined && textOffsetValuesArray !== undefined && textLetterSpacingValuesArray !== undefined && textHaloColorValuesArray !== undefined) {
       // if(textOffsetValuesArray === undefined &&) { // could be an array or string
-        // console.log(layer.id);
+      console.log('add layer: ' + layer.id);
         
         map.addLayer({ // add values in each layer
           "id": layer.id,
@@ -42730,8 +42730,9 @@ map.on('load', function () {
       
       if(textSizeValuesArray !== undefined && textFontValuesArray === undefined && textOffsetValuesArray === undefined && textLetterSpacingValuesArray === undefined && textHaloColorValuesArray !== undefined) {
       // if(textOffsetValuesArray === undefined &&) { // could be an array or string
-        console.log('things are undefined ' + layer.id);
-        // console.log(textOffset);
+        // console.log('things are undefined ' + layer.id);
+        console.log('also add layer: ' + layer.id);
+        
         map.addLayer({ // add values in each layer
           "id": layer.id,
           "type": "symbol",
@@ -42938,11 +42939,12 @@ map.on('load', function () {
       // } else {
       //   console.log('fix the textFontValuesArray issue.');
       // }
-
-    map.setFilter(layer.id, ['==', 'field', 'item' + k]);
-
+    // console.log('this layer: ' + layer.id);
+    if(k >= 0 || k < 12) {
+      map.setFilter(layer.id, ['==', 'field', 'item' + k]);
+      console.log('adding layer ' + layer.id + ' into item' + k);
+    }
     // }
-    
   });
 
   // map.scrollZoom.disable();
