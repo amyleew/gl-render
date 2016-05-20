@@ -13,19 +13,19 @@ allLayers.forEach(function(layer) { // remove the objects from array
     if(source.indexOf('place_label') !== -1) {
       // console.log(layer.id);
       var filtering = _.flatten(layer.filter);
-      // if(filtering.indexOf('==') === 0) {
-      //   // console.log(layer.id + ' equals 0');
-      //   // console.log(filtering[2]);
-      //   if(filtering[2] === 'city') {
-      //     storage.push(layer);
-      //     names.push('City');
-      //   }
-      //   if(filtering[2] === 'islet') {
-      //     // console.log('you got islet');
-      //     storage.push(layer);
-      //     names.push('Islet');
-      //   }
-      // }
+      if(filtering.indexOf('==') === 0) {
+        // console.log(layer.id + ' equals 0');
+        // console.log(filtering[2]);
+        if(filtering[2] === 'city') {
+          storage.push(layer);
+          names.push('City');
+        }
+        if(filtering[2] === 'islet') {
+          // console.log('you got islet');
+          storage.push(layer);
+          names.push('Islet');
+        }
+      }
       // doesn't make it ......
       if(filtering.indexOf('==') > 0) {//} || filtering.indexOf('==') === 0) {
         var number = filtering.indexOf('==');
