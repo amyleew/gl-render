@@ -14,17 +14,50 @@ allLayers.forEach(function(layer) { // remove the objects from array
         // console.log(layer.id);
         var filtering = _.flatten(layer.filter);
         if(filtering.indexOf('==') === 0) {
-          // console.log(layer.id + ' equals 0');
-          // console.log(filtering[2]);
           if(filtering[2] === 'city') {
             storage.push(layer);
             names.push('City');
           }
+          if(filtering[2] === 'town') {
+            storage.push(layer);
+            names.push('Town');
+          }
+          if(filtering[2] === 'village') {
+            storage.push(layer);
+            names.push('Village');
+          }
+          // if(filtering[2] === 'hamlet') {
+          //   storage.push(layer);
+          //   names.push('Hamlet');
+          // }
+          // if(filtering[2] === 'suburb') {
+          //   storage.push(layer);
+          //   names.push('Suburb');
+          // }
+          if(filtering[2] === 'neighbourhood') {
+            storage.push(layer);
+            names.push('Neighbourhood');
+          }
+          if(filtering[2] === 'island') {
+            storage.push(layer);
+            names.push('Island');
+          }
           if(filtering[2] === 'islet') {
-            // console.log('you got islet');
             storage.push(layer);
             names.push('Islet');
           }
+          // if(filtering[2] === 'archipelago') {
+          //   storage.push(layer);
+          //   names.push('Archipelago');
+          // }
+          // if(filtering[2] === 'residential') {
+          //   storage.push(layer);
+          //   names.push('Residential');
+          // }
+          // if(filtering[2] === 'aboriginal_lands') {
+          //   storage.push(layer);
+          //   names.push('Aboriginal Lands');
+          // }
         }
         // doesn't make it ......
         if(filtering.indexOf('==') > 0) {//} || filtering.indexOf('==') === 0) {
@@ -45,7 +78,7 @@ allLayers.forEach(function(layer) { // remove the objects from array
             storage.push(layer);
             names.push('Hamlet');
           }
-          if(filtering[number + 1] === 'type') {// && filtering[number + 2] === 'suburb') {
+          if(filtering[number + 1] === 'type' && filtering[number + 2] === 'suburb') {
             storage.push(layer);
             names.push('Suburb');
             // console.log(layer);

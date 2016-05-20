@@ -42398,17 +42398,50 @@ allLayers.forEach(function(layer) { // remove the objects from array
         // console.log(layer.id);
         var filtering = _.flatten(layer.filter);
         if(filtering.indexOf('==') === 0) {
-          // console.log(layer.id + ' equals 0');
-          // console.log(filtering[2]);
           if(filtering[2] === 'city') {
             storage.push(layer);
             names.push('City');
           }
+          if(filtering[2] === 'town') {
+            storage.push(layer);
+            names.push('Town');
+          }
+          if(filtering[2] === 'village') {
+            storage.push(layer);
+            names.push('Village');
+          }
+          // if(filtering[2] === 'hamlet') {
+          //   storage.push(layer);
+          //   names.push('Hamlet');
+          // }
+          // if(filtering[2] === 'suburb') {
+          //   storage.push(layer);
+          //   names.push('Suburb');
+          // }
+          if(filtering[2] === 'neighbourhood') {
+            storage.push(layer);
+            names.push('Neighbourhood');
+          }
+          if(filtering[2] === 'island') {
+            storage.push(layer);
+            names.push('Island');
+          }
           if(filtering[2] === 'islet') {
-            // console.log('you got islet');
             storage.push(layer);
             names.push('Islet');
           }
+          // if(filtering[2] === 'archipelago') {
+          //   storage.push(layer);
+          //   names.push('Archipelago');
+          // }
+          // if(filtering[2] === 'residential') {
+          //   storage.push(layer);
+          //   names.push('Residential');
+          // }
+          // if(filtering[2] === 'aboriginal_lands') {
+          //   storage.push(layer);
+          //   names.push('Aboriginal Lands');
+          // }
         }
         // doesn't make it ......
         if(filtering.indexOf('==') > 0) {//} || filtering.indexOf('==') === 0) {
@@ -42429,7 +42462,7 @@ allLayers.forEach(function(layer) { // remove the objects from array
             storage.push(layer);
             names.push('Hamlet');
           }
-          if(filtering[number + 1] === 'type') {// && filtering[number + 2] === 'suburb') {
+          if(filtering[number + 1] === 'type' && filtering[number + 2] === 'suburb') {
             storage.push(layer);
             names.push('Suburb');
             // console.log(layer);
@@ -42550,32 +42583,6 @@ map.on('load', function () {
         textFont2 = textFont[1].toString();
         textFontValuesArray = undefined;
       }
-      // text-offset values
-      var textOffset = layer.layout['text-offset'].stops;
-      var textOffsetBase = layer.layout['text-offset'].base;
-      var textOffsetValues = {};
-      var textOffsetValuesArray = [];
-      if(textOffset !== undefined) {
-        if(textOffset.length > 1) { // save all the diff Offsets set
-          for(i=0; i < textOffset.length; i++) {
-            textOffsetValues.id = layer.id;
-            textOffsetValues.zoom = textOffset[i][0];
-            textOffsetValues.font = textOffset[i][1];
-            textOffsetValuesArray.push({
-              "id": textOffsetValues.id,
-              "zoom": textOffsetValues.zoom,
-              "font": textOffsetValues.font
-            });
-          }
-        }
-      } else { // these items only have one text-offset
-        // console.log(layer.id + ' only has one text-offset');
-        textOffset = layer.layout['text-offset'];
-        textOffset1 = parseFloat(textOffset[0]);
-        textOffset2 = parseFloat(textOffset[1]);
-        textOffsetValuesArray = undefined;
-      }
-      // text-letter-spacing values
       var textLetterSpacing  = layer.layout['text-letter-spacing'];
       var textLetterSpacingBase;
       var textLetterSpacingValues = {};
@@ -42628,12 +42635,10 @@ map.on('load', function () {
       // gather text-halo-blur values
       var textHaloBlur = layer.paint['text-halo-blur'];
 
-      
       // TEXT-OFFSET IS FUNCTION ... need textFontValues  textLetterSpacing and textHaloColor
-      if(textSizeValuesArray !== undefined && textFontValuesArray !== undefined && textOffsetValuesArray !== undefined && textLetterSpacingValuesArray !== undefined && textHaloColorValuesArray !== undefined) {
-      // if(textOffsetValuesArray === undefined &&) { // could be an array or string
+      if(textSizeValuesArray !== undefined && textFontValuesArray !== undefined && textLetterSpacingValuesArray !== undefined && textHaloColorValuesArray !== undefined) {
       console.log('add layer: ' + layer.id);
-        
+
         map.addLayer({ // add values in each layer
           "id": layer.id,
           "type": "symbol",
@@ -42655,25 +42660,6 @@ map.on('load', function () {
                   [
                     textFontValuesArray[1].font[0],
                     textFontValuesArray[1].font[1]
-                  ]
-                ]
-              ]
-            },
-            "text-offset": {
-              "base": textOffsetBase,
-              "stops": [
-                [
-                  textOffsetValuesArray[0].zoom,
-                  [
-                    textOffsetValuesArray[0].font[0],
-                    textOffsetValuesArray[0].font[1]
-                  ]
-                ],
-                [
-                  textOffsetValuesArray[1].zoom,
-                  [
-                    textOffsetValuesArray[1].font[0],
-                    textOffsetValuesArray[1].font[1]
                   ]
                 ]
               ]
@@ -42728,8 +42714,7 @@ map.on('load', function () {
       }
       
       
-      if(textSizeValuesArray !== undefined && textFontValuesArray === undefined && textOffsetValuesArray === undefined && textLetterSpacingValuesArray === undefined && textHaloColorValuesArray !== undefined) {
-      // if(textOffsetValuesArray === undefined &&) { // could be an array or string
+      if(textSizeValuesArray !== undefined && textFontValuesArray === undefined && textLetterSpacingValuesArray === undefined && textHaloColorValuesArray !== undefined) {
         // console.log('things are undefined ' + layer.id);
         console.log('also add layer: ' + layer.id);
         
@@ -42742,10 +42727,6 @@ map.on('load', function () {
             "text-font": [
               textFont1,
               textFont2
-            ],
-            "text-offset": [
-              textOffset1,
-              textOffset2
             ],
             "text-anchor": "top-left", // keep as is for placement on styleguide
             "text-size": {
@@ -42780,170 +42761,15 @@ map.on('load', function () {
             "text-color": textColor,
             "text-halo-blur": textHaloBlur
           }
-        })
+        });
       }
       
       
-      
-      // TEXT-SIZE IS ARRAY
-      // TEXT-SIZE IS STRING
-      // if(textOffsetValuesArray !== undefined && textFontValuesArray !== undefined && textLetterSpacing !== undefined && textHaloColor !== undefined) {
-      //   console.log(textFont);
-      //   // console.log(textOffsetValuesArray);
-      //   map.addLayer({ // add values in each layer
-      //     "id": layer.id,
-      //     "type": "symbol",
-      //     "source": "markers",
-      //     "layout": {
-      //       "text-field": layer.id,
-      //       "text-font":{
-      //         "base": textFontBase,
-      //         "stops": [
-      //           [
-      //             textFontValuesArray[0].zoom,
-      //             [
-      //               textFontValuesArray[0].font[0],
-      //               textFontValuesArray[0].font[1]
-      //             ]
-      //           ],
-      //           [
-      //             textFontValuesArray[1].zoom,
-      //             [
-      //               textFontValuesArray[1].font[0],
-      //               textFontValuesArray[1].font[1]
-      //             ]
-      //           ]
-      //         ]
-      //       },
-      //       "text-offset": {
-      //         "base": textOffsetBase,
-      //         "stops": [
-      //           [
-      //             textOffsetValuesArray[0].zoom,
-      //             [
-      //               textOffsetValuesArray[0].font[0],
-      //               textOffsetValuesArray[0].font[1]
-      //             ]
-      //           ],
-      //           [
-      //             textOffsetValuesArray[1].zoom,
-      //             [
-      //               textOffsetValuesArray[1].font[0],
-      //               textOffsetValuesArray[1].font[1]
-      //             ]
-      //           ]
-      //         ]
-      //       },
-      //       "text-anchor": "top-left", // keep as is for placement on styleguide
-      //       "text-size": {
-      //         "base": textSizeBase,
-      //         "stops": [
-      //           [
-      //             textSizeValuesArray[0].zoom,
-      //             textSizeValuesArray[0].font
-      //           ],
-      //           [
-      //             textSizeValuesArray[1].zoom,
-      //             textSizeValuesArray[1].font
-      //           ]
-      //         ]
-      //       },
-      //       "text-letter-spacing": {
-      //         "base": textLetterSpacingBase,
-      //         "stops": [
-      //           [
-      //             textLetterSpacingValuesArray[0].zoom,
-      //             textLetterSpacingValuesArray[0].font
-      //           ],
-      //           [
-      //             textLetterSpacingValuesArray[1].zoom,
-      //             textLetterSpacingValuesArray[1].font
-      //           ]
-      //         ]
-      //       }
-      //     },
-      //     "paint": {
-      //       "text-halo-width": textHaloWidth,
-      //       "text-halo-color": {
-      //         "base": textHaloColorBase,
-      //         "stops": [
-      //           [
-      //             textHaloColorValuesArray[0].zoom,
-      //             textHaloColorValuesArray[0].font
-      //           ],
-      //           [
-      //             textHaloColorValuesArray[1].zoom,
-      //             textHaloColorValuesArray[1].font
-      //           ]
-      //         ]
-      //       },
-      //       "text-color": textColor,
-      //       "text-halo-blur": textHaloBlur
-      //     }
-      //   })
-      // }
-        
-        // else { // no text-letter-spacing value set
-        //          //text-font is not an array
-        //          // no offset values
-        //          console.log('this is happening for ' + layer.id);
-        //   map.addLayer({ // add values in each layer
-        //     "id": layer.id,
-        //     "type": "symbol",
-        //     "source": "markers",
-        //     "layout": {
-        //       "text-field": layer.id,
-        //       "text-font": [
-        //         textFont1,
-        //         textFont2
-        //       ],
-        //       "text-offset": [
-        //         textOffset[0],
-        //         textOffset[1]
-        //       ],
-        //       "text-anchor": "top-left", // keep as is for placement on styleguide
-        //       "text-size": {
-        //         "base": textSizeBase,
-        //         "stops": [
-        //           [
-        //             textSizeValuesArray[0].zoom,
-        //             textSizeValuesArray[0].font
-        //           ],
-        //           [
-        //             textSizeValuesArray[1].zoom,
-        //             textSizeValuesArray[1].font
-        //           ]
-        //         ]
-        //       }
-        //     },
-        //     "paint": {
-        //       "text-halo-width": textHaloWidth,
-        //       "text-halo-color": {
-        //         "base": textHaloColorBase,
-        //         "stops": [
-        //           [
-        //             textHaloColorValuesArray[0].zoom,
-        //             textHaloColorValuesArray[0].font
-        //           ],
-        //           [
-        //             textHaloColorValuesArray[1].zoom,
-        //             textHaloColorValuesArray[1].font
-        //           ]
-        //         ]
-        //       },
-        //       "text-color": textColor,
-        //       "text-halo-blur": textHaloBlur
-        //     }
-        //   })
-        // }
-      // } else {
-      //   console.log('fix the textFontValuesArray issue.');
-      // }
     // console.log('this layer: ' + layer.id);
-    if(k >= 0 || k < 12) {
+    // if(k >= 0 || k < 12) {
       map.setFilter(layer.id, ['==', 'field', 'item' + k]);
       console.log('adding layer ' + layer.id + ' into item' + k);
-    }
+    // }
     // }
   });
 
