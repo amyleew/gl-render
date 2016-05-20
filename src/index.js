@@ -47,7 +47,7 @@ map.on('load', function () {
           });
         }
       } else {
-        console.log(textSize.length);
+        // console.log(textSize.length);
       }
       // text-font values
       var textFont = layer.layout['text-font'].stops;
@@ -57,7 +57,7 @@ map.on('load', function () {
       var textFont1; // for the strings
       var textFont2;
       if(textFont !== undefined) {
-        console.log(layer.id + ' ' + textFont.length);
+        // console.log(layer.id + ' ' + textFont.length);
         if(textFont.length > 1) { // save all the diff Fonts set
           for(i=0; i < textFont.length; i++) {
             textFontValues.id = layer.id;
@@ -159,7 +159,7 @@ map.on('load', function () {
       // TEXT-OFFSET IS FUNCTION ... need textFontValues  textLetterSpacing and textHaloColor
       if(textSizeValuesArray !== undefined && textFontValuesArray !== undefined && textOffsetValuesArray !== undefined && textLetterSpacingValuesArray !== undefined && textHaloColorValuesArray !== undefined) {
       // if(textOffsetValuesArray === undefined &&) { // could be an array or string
-        console.log(layer.id);
+        // console.log(layer.id);
         
         map.addLayer({ // add values in each layer
           "id": layer.id,

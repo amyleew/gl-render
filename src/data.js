@@ -79,7 +79,7 @@ allLayers.forEach(function(layer) { // remove the objects from array
       }
     }
   } else {
-    console.log('skip this one here ' + layer.id);
+    console.log('data.js skipped this layer with ref: ' + layer.id);
   }
 });
 
