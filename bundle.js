@@ -42386,6 +42386,7 @@ var fs = require('fs');
 var _ = require('underscore-node');
 var style = require('../assets/satellite-streets-v9.json');
 
+
 // check this style
 var storage = []; // storage array for layers
 var names = []; // storing the names for the layers
@@ -42393,9 +42394,10 @@ var allLayers = style.layers;
 allLayers.forEach(function(layer) { // remove the objects from array
   if(layer.ref === undefined) {
     var source = layer['source-layer'];
+    // console.log(layer);
     if(source !== undefined) {
-      if(source.indexOf('place_label') !== -1) {
-        // console.log(layer.id);
+      // PLACE LABELS //
+      if(source.indexOf('place_label') !== -1) { // console.log(layer.id);
         var filtering = _.flatten(layer.filter);
         if(filtering.indexOf('==') === 0) {
           if(filtering[2] === 'city') {
@@ -42449,6 +42451,7 @@ allLayers.forEach(function(layer) { // remove the objects from array
           if(filtering[number + 1] === 'type' && filtering[number + 2] === 'city') {
             storage.push(layer);
             names.push('City');
+            // console.log(layer);
           }
           if(filtering[number + 1] === 'type' && filtering[number + 2] === 'town') {
             storage.push(layer);
@@ -42505,6 +42508,68 @@ module.exports = names;
 module.exports = storage;
 },{"../assets/satellite-streets-v9.json":1,"fs":3,"underscore-node":171}],185:[function(require,module,exports){
 var fs = require('fs');
+var _ = require('underscore-node');
+var style = require('../assets/satellite-streets-v9.json');
+
+var allLayers = style.layers;
+var choiceLayers = [];
+
+var geojson = {
+  "type": "FeatureCollection",
+    "features": []
+  };
+
+// add tile once
+
+
+// pull out specific layers for labels
+allLayers.forEach(function(layer) { // let's access each layer
+  // find the labels for places
+  if(layer['source-layer'] === 'place_label' || layer['source-layer'] === 'country_label' || layer['source-layer'] === 'state_label') {
+    choiceLayers.push(layer);
+  }
+});
+
+// starting lng and lat
+var startLng = -122.643127;
+var startLat = 48.35436;
+var minusLat = 0.00236;
+
+
+// create the geojson data
+function creategeojson(styleData) {
+  choiceLayers.forEach(function(layer, i) { // let's access each layer
+    var newLat = startLat - (minusLat * i); // new placement
+    console.log(layer.id + ' position: ' + i);
+    var feature = {
+      'type': 'Feature',
+      'properties': {
+        'field': 'item' + i
+      },
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [
+          startLng,
+          newLat
+          ]
+        }
+      };
+      geojson.features.push(feature);
+  });
+}
+
+// generate new file
+creategeojson();
+fs.writeFile('generate.geojson', JSON.stringify(geojson, null, 2));
+
+// loop in colors
+
+
+
+// module.exports = names;
+// module.exports = storage;
+},{"../assets/satellite-streets-v9.json":1,"fs":3,"underscore-node":171}],186:[function(require,module,exports){
+
 var mapboxgl = require('mapbox-gl');
 var data = require('./data.js');
 // console.log(data.length);
@@ -42527,14 +42592,14 @@ var map = new mapboxgl.Map({
 
 map.on('load', function () {
   var sourceObj = new mapboxgl.GeoJSONSource({
-    data: "assets/z14_48-3432_122-6154.geojson"  // mslee.5jzf6k3f
+    // data: "assets/z14_48-3432_122-6154.geojson"  // mslee.5jzf6k3f
+    data: "../generate.geojson"  // mslee.5jzf6k3f
   });
   map.addSource("markers", sourceObj);
 
   // loop thru each layer from data source
   data.forEach(function(layer, k) {
     added = false;
-    
     // ADD ALLL THE DATA TO VALUES
     var textSize = layer.layout['text-size'].stops;
     var textSizeBase = layer.layout['text-size'].base;
@@ -42610,6 +42675,7 @@ map.on('load', function () {
     }
     // gather text-color values
     var textColor = layer.paint['text-color'];
+    console.log(textColor);
     // gather text-halo-color values
     var textHaloColor = layer.paint['text-halo-color'];
     var textHaloColorBase;
@@ -42807,15 +42873,42 @@ map.on('load', function () {
         }
       });
     }
-    for(n = 0; n < data.length + 1; n++) {
+
+       // add all colors
+    if(layer.paint["text-color"] !== undefined) {
+      // console.log("first is: circle" + k)
+      map.addLayer({
+        "id": "circle-" + layer.id,
+        "type": "circle",
+        "source": "markers",
+        "maxzoom": 22,
+        "paint": {
+          "circle-color": textColor,
+          "circle-radius": 6
+        }
+      });
+    }
+
+    // console.log(layer + ' and number: ' + k);
+
+    for(n = 0; n < data.length + 1; n++) { // assign to map data
       if(added) {
         map.setFilter(layer.id, ['==', 'field', 'item' + k]);
       }
     }
+
+    for(m = 0; m < data.length + 1; m++) { // assign colors to the map rendering
+      if(added) {
+        // if(layer.paint["text-color"] !== undefined) {
+          console.log("circle-" + layer.id);
+          map.setFilter("circle-" + layer.id, ['==', 'field', 'color' + k]);
+        // }
+        }
+      }
   });
   // map.scrollZoom.disable();
 });
 
 
 
-},{"./data.js":184,"fs":3,"mapbox-gl":72}]},{},[184,185]);
+},{"./data.js":184,"mapbox-gl":72}]},{},[184,185,186]);

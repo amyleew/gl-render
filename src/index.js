@@ -1,4 +1,4 @@
-var fs = require('fs');
+
 var mapboxgl = require('mapbox-gl');
 var data = require('./data.js');
 // console.log(data.length);
@@ -21,14 +21,14 @@ var map = new mapboxgl.Map({
 
 map.on('load', function () {
   var sourceObj = new mapboxgl.GeoJSONSource({
-    data: "assets/z14_48-3432_122-6154.geojson"  // mslee.5jzf6k3f
+    // data: "assets/z14_48-3432_122-6154.geojson"  // mslee.5jzf6k3f
+    data: "../generate.geojson"  // mslee.5jzf6k3f
   });
   map.addSource("markers", sourceObj);
 
   // loop thru each layer from data source
   data.forEach(function(layer, k) {
     added = false;
-    
     // ADD ALLL THE DATA TO VALUES
     var textSize = layer.layout['text-size'].stops;
     var textSizeBase = layer.layout['text-size'].base;
@@ -104,6 +104,7 @@ map.on('load', function () {
     }
     // gather text-color values
     var textColor = layer.paint['text-color'];
+    console.log(textColor);
     // gather text-halo-color values
     var textHaloColor = layer.paint['text-halo-color'];
     var textHaloColorBase;
@@ -301,11 +302,38 @@ map.on('load', function () {
         }
       });
     }
-    for(n = 0; n < data.length + 1; n++) {
+
+       // add all colors
+    if(layer.paint["text-color"] !== undefined) {
+      // console.log("first is: circle" + k)
+      map.addLayer({
+        "id": "circle-" + layer.id,
+        "type": "circle",
+        "source": "markers",
+        "maxzoom": 22,
+        "paint": {
+          "circle-color": textColor,
+          "circle-radius": 6
+        }
+      });
+    }
+
+    // console.log(layer + ' and number: ' + k);
+
+    for(n = 0; n < data.length + 1; n++) { // assign to map data
       if(added) {
         map.setFilter(layer.id, ['==', 'field', 'item' + k]);
       }
     }
+
+    for(m = 0; m < data.length + 1; m++) { // assign colors to the map rendering
+      if(added) {
+        // if(layer.paint["text-color"] !== undefined) {
+          console.log("circle-" + layer.id);
+          map.setFilter("circle-" + layer.id, ['==', 'field', 'color' + k]);
+        // }
+        }
+      }
   });
   // map.scrollZoom.disable();
 });

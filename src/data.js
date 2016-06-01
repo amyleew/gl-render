@@ -2,6 +2,7 @@ var fs = require('fs');
 var _ = require('underscore-node');
 var style = require('../assets/satellite-streets-v9.json');
 
+
 // check this style
 var storage = []; // storage array for layers
 var names = []; // storing the names for the layers
@@ -9,9 +10,10 @@ var allLayers = style.layers;
 allLayers.forEach(function(layer) { // remove the objects from array
   if(layer.ref === undefined) {
     var source = layer['source-layer'];
+    // console.log(layer);
     if(source !== undefined) {
-      if(source.indexOf('place_label') !== -1) {
-        // console.log(layer.id);
+      // PLACE LABELS //
+      if(source.indexOf('place_label') !== -1) { // console.log(layer.id);
         var filtering = _.flatten(layer.filter);
         if(filtering.indexOf('==') === 0) {
           if(filtering[2] === 'city') {
@@ -65,6 +67,7 @@ allLayers.forEach(function(layer) { // remove the objects from array
           if(filtering[number + 1] === 'type' && filtering[number + 2] === 'city') {
             storage.push(layer);
             names.push('City');
+            // console.log(layer);
           }
           if(filtering[number + 1] === 'type' && filtering[number + 2] === 'town') {
             storage.push(layer);
