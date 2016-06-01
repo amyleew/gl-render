@@ -1,6 +1,7 @@
-
 var mapboxgl = require('mapbox-gl');
 var data = require('./data.js');
+var fs = require('fs');
+
 // console.log(data.length);
 var added = false; // make sure data is all layered before filtering
 

@@ -31,11 +31,12 @@ var minusLat = 0.00236;
 function creategeojson(styleData) {
   choiceLayers.forEach(function(layer, i) { // let's access each layer
     var newLat = startLat - (minusLat * i); // new placement
-    console.log(layer.id + ' position: ' + i);
+    // console.log(layer.id + ' position: ' + i);
     var feature = {
       'type': 'Feature',
       'properties': {
-        'field': 'item' + i
+        'field': 'item' + i,
+        'name': layer.id
       },
       'geometry': {
         'type': 'Point',
@@ -50,8 +51,16 @@ function creategeojson(styleData) {
 }
 
 // generate new file
-creategeojson();
-fs.writeFile('generate.geojson', JSON.stringify(geojson, null, 2));
+// console.log(style);
+allLayers.forEach(function(datum, k) {
+  creategeojson(datum);
+  if (k+1 === allLayers.length) {
+    fs.writeFile('generate.geojson', JSON.stringify(geojson, null, 2), function(err) {
+      if (err) throw err;
+    });
+  }
+});
+
 
 // loop in colors
 
