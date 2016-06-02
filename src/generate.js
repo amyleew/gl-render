@@ -10,7 +10,7 @@ var geojson = {
     "features": []
   };
 
-// add tile once
+// add title once
 
 
 // pull out specific layers for labels
@@ -31,12 +31,23 @@ var minusLat = 0.00236;
 function creategeojson(styleData) {
   choiceLayers.forEach(function(layer, i) { // let's access each layer
     var newLat = startLat - (minusLat * i); // new placement
-    // console.log(layer.id + ' position: ' + i);
+    console.log(layer.id + ' position: ' + i);
     var feature = {
       'type': 'Feature',
       'properties': {
         'field': 'item' + i,
-        'name': layer.id
+        'name': layer.id,
+        'styleType': layer.type,
+        'layout': {
+          'text-field': layer.id,
+          'text-font': layer.layout['text-font'],
+        },
+        'paint': {
+          'text-halo-width': layer.paint['text-halo-width'],
+          'text-halo-color': layer.paint['text-halo-color'],
+          'text-color': layer.paint['text-color'],
+          'text-blur': layer.paint['text-blur']
+        }
       },
       'geometry': {
         'type': 'Point',
@@ -51,20 +62,11 @@ function creategeojson(styleData) {
 }
 
 // generate new file
-// console.log(style);
-allLayers.forEach(function(datum, k) {
-  creategeojson(datum);
-  if (k+1 === allLayers.length) {
-    fs.writeFile('generate.geojson', JSON.stringify(geojson, null, 2), function(err) {
-      if (err) throw err;
-    });
-  }
-});
-
+creategeojson();
 
 // loop in colors
 
 
 
-// module.exports = names;
-// module.exports = storage;
+module.exports = geojson;
+// module.exports = choiceLayers;
