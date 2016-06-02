@@ -16,11 +16,14 @@ var map = new mapboxgl.Map({
 });
 
 map.on('load', function () {
-  var sourceObj = new mapboxgl.GeoJSONSource({data: geojson});
+  var sourceObj = new mapboxgl.GeoJSONSource({
+    data: geojson
+  });
   map.addSource("markers", sourceObj);
-  geojson.features.forEach(function(layer, i) { // add title
+  geojson.features.forEach(function(layer, i) { // add geojson features
     var fullLayer = layer.properties;
     if(fullLayer.field === 'title') {
+      // console.log('the is ' + i + ' title.');
       map.addLayer({ // add values in each layer
         "id": fullLayer.name,
         "type": fullLayer.styleType,
@@ -38,7 +41,6 @@ map.on('load', function () {
       map.setFilter(fullLayer.name, ['==', 'field', fullLayer.field]);
     }
     if(fullLayer.field.startsWith('item')) {
-      console.log('these are items');
       map.addLayer({ // add values in each layer
         "id": fullLayer.name,
         "type": fullLayer.styleType,
@@ -58,7 +60,7 @@ map.on('load', function () {
           map.setFilter(fullLayer.name, ['==', 'field', 'item'+i]);
         }
       }
-    } else {  // add color
+    } else {
       console.log('this is diff');
     }
   });
