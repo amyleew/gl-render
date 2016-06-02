@@ -8112,7 +8112,7 @@ module.exports={
         "text-max-width": 8
       },
       "paint": {
-        "text-color": "rgb(200,100,50)",
+        "text-color": "hsl(0, 100%, 100%)",
         "text-halo-color": {
           "base": 1,
           "stops": [
@@ -9979,7 +9979,7 @@ module.exports={
           ]
         },
         "text-halo-width": 1.25,
-        "text-color": "rgb(50, 180, 220)"
+        "text-color": "hsl(0, 0%, 100%)"
       }
     }
   ]
@@ -42592,12 +42592,11 @@ var startLng = -122.643127;
 var startLat = 48.35436;
 var minusLat = 0.00236;
 
-
 // create the geojson data
 function creategeojson(styleData) {
   choiceLayers.forEach(function(layer, i) { // let's access each layer
     var newLat = startLat - (minusLat * i); // new placement
-    console.log(layer.id + ' position: ' + i);
+    // console.log(layer.id + ' position: ' + i);
     var feature = {
       'type': 'Feature',
       'properties': {
@@ -42642,7 +42641,6 @@ var mapboxgl = require('mapbox-gl');
 var geojson = require('./generate.js');
 var fs = require('fs');
 
-var added = false; // make sure data is all layered before filtering
 mapboxgl.accessToken = 'pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg';
 var bounds = [
   [-152.2265625, -2.460181181020993], //SW
@@ -42661,9 +42659,7 @@ map.on('load', function () {
     data: geojson
   });
   map.addSource("markers", sourceObj);
-  added = false;
-  // add geojson features
-  geojson.features.forEach(function(layer, i) {
+  geojson.features.forEach(function(layer, i) { // add geojson features
     var fullLayer = layer.properties;
     map.addLayer({ // add values in each layer
       "id": fullLayer.name,
@@ -42679,9 +42675,11 @@ map.on('load', function () {
         "text-color": fullLayer.paint['text-color']
       }
     });
-    // map.setFilter(fullLayer.name, ['==', 'field', fullLayer.layout['text-field']]);
+    for(n = 0; n < geojson.features.length + 1; n++) {
+      if(n === i) {
+        map.setFilter(fullLayer.name, ['==', 'field', 'item'+i]);
+      }
+    }
   });
 });
-
-
 },{"./generate.js":185,"fs":3,"mapbox-gl":72}]},{},[184,185,186]);

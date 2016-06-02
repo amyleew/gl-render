@@ -8111,7 +8111,7 @@
         "text-max-width": 8
       },
       "paint": {
-        "text-color": "rgb(200,100,50)",
+        "text-color": "hsl(0, 100%, 100%)",
         "text-halo-color": {
           "base": 1,
           "stops": [
@@ -9978,7 +9978,7 @@
           ]
         },
         "text-halo-width": 1.25,
-        "text-color": "rgb(50, 180, 220)"
+        "text-color": "hsl(0, 0%, 100%)"
       }
     }
   ]

@@ -2,7 +2,6 @@ var mapboxgl = require('mapbox-gl');
 var geojson = require('./generate.js');
 var fs = require('fs');
 
-var added = false; // make sure data is all layered before filtering
 mapboxgl.accessToken = 'pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg';
 var bounds = [
   [-152.2265625, -2.460181181020993], //SW
@@ -21,9 +20,7 @@ map.on('load', function () {
     data: geojson
   });
   map.addSource("markers", sourceObj);
-  added = false;
-  // add geojson features
-  geojson.features.forEach(function(layer, i) {
+  geojson.features.forEach(function(layer, i) { // add geojson features
     var fullLayer = layer.properties;
     map.addLayer({ // add values in each layer
       "id": fullLayer.name,
@@ -39,7 +36,10 @@ map.on('load', function () {
         "text-color": fullLayer.paint['text-color']
       }
     });
-    // map.setFilter(fullLayer.name, ['==', 'field', fullLayer.layout['text-field']]);
+    for(n = 0; n < geojson.features.length + 1; n++) {
+      if(n === i) {
+        map.setFilter(fullLayer.name, ['==', 'field', 'item'+i]);
+      }
+    }
   });
 });
-

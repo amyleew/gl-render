@@ -26,12 +26,11 @@ var startLng = -122.643127;
 var startLat = 48.35436;
 var minusLat = 0.00236;
 
-
 // create the geojson data
 function creategeojson(styleData) {
   choiceLayers.forEach(function(layer, i) { // let's access each layer
     var newLat = startLat - (minusLat * i); // new placement
-    console.log(layer.id + ' position: ' + i);
+    // console.log(layer.id + ' position: ' + i);
     var feature = {
       'type': 'Feature',
       'properties': {
