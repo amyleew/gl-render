@@ -42607,7 +42607,6 @@ feature = {
 };
 geojson.features.push(feature);
 
-
 // pull out specific layers for labels
 allLayers.forEach(function(layer) { // let's access each layer
   // find the labels for places
@@ -42615,7 +42614,6 @@ allLayers.forEach(function(layer) { // let's access each layer
     choiceLayers.push(layer);
   }
 });
-
 // starting lng and lat
 var startLng = -122.643127;
 var startLat = 48.35436;
@@ -42658,7 +42656,6 @@ function creategeojson(styleData) {
         }
       };
       geojson.features.push(feature);
-
       // loop in colors
       // if(i < 3) {
       //   newColorLng = startColorLng + (minusColorLng * i);
@@ -42687,35 +42684,35 @@ function creategeojson(styleData) {
       //   newColorLat = startColorLat + ((minusColorLat * i)*6);
       //   newColorLng = startColorLng + ((minusColorLng * i)*6);
       // }
-    //   feature = {
-    //     'type': 'Feature',
-    //     'properties': {
-    //       'field': 'color' + i,
-    //       'name': 'color_' + layer.id,
-    //       'styleType': "symbol",
-    //       'layout': {
-    //         'text-field': 'Title',
-    //         "text-font": [
-    //           "DIN Offc Pro Medium",
-    //           "Arial Unicode MS Regular"
-    //         ],
-    //       },
-    //       'paint': {
-    //         'text-color': layer.paint['text-color'],
-    //         "text-halo-width": 0,
-    //         'text-halo-color': layer.paint['text-halo-color'],
-    //         'text-blur': 0
-    //       }
-    //     },
-    //     'geometry': {
-    //       'type': 'Point',
-    //       'coordinates': [
-    //         newColorLng,
-    //         newColorLat
-    //       ]
-    //     }
-    // };
-    // geojson.features.push(feature);
+      feature = {
+        'type': 'Feature',
+        'properties': {
+          'field': 'color' + i,
+          'name': 'color_' + layer.id,
+          'styleType': "symbol",
+          'layout': {
+            'text-field': 'Title',
+            "text-font": [
+              "DIN Offc Pro Medium",
+              "Arial Unicode MS Regular"
+            ],
+          },
+          'paint': {
+            'text-color': layer.paint['text-color'],
+            "text-halo-width": 0,
+            'text-halo-color': layer.paint['text-halo-color'],
+            'text-blur': 0
+          }
+        },
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [
+            newColorLng,
+            newColorLat
+          ]
+        }
+    };
+    geojson.features.push(feature);
   });
 }
 
@@ -42745,30 +42742,50 @@ var map = new mapboxgl.Map({
 });
 
 map.on('load', function () {
-  var sourceObj = new mapboxgl.GeoJSONSource({
-    data: geojson
-  });
+  var sourceObj = new mapboxgl.GeoJSONSource({data: geojson});
   map.addSource("markers", sourceObj);
-  geojson.features.forEach(function(layer, i) { // add geojson features
+  geojson.features.forEach(function(layer, i) { // add title
     var fullLayer = layer.properties;
-    map.addLayer({ // add values in each layer
-      "id": fullLayer.name,
-      "type": fullLayer.styleType,
-      "source": "markers",
-      "layout": {
-        "text-field": fullLayer.layout['text-field'],
-        "text-font": fullLayer.layout['text-font'],
-      },
-      "paint": {
-        "text-halo-width": fullLayer.paint['text-halo-width'],
-        "text-halo-color": fullLayer.paint['text-halo-color'],
-        "text-color": fullLayer.paint['text-color']
+    if(fullLayer.field === 'title') {
+      map.addLayer({ // add values in each layer
+        "id": fullLayer.name,
+        "type": fullLayer.styleType,
+        "source": "markers",
+        "layout": {
+          "text-field": fullLayer.layout['text-field'],
+          "text-font": fullLayer.layout['text-font'],
+        },
+        "paint": {
+          "text-halo-width": fullLayer.paint['text-halo-width'],
+          "text-halo-color": fullLayer.paint['text-halo-color'],
+          "text-color": fullLayer.paint['text-color']
+        }
+      });
+      map.setFilter(fullLayer.name, ['==', 'field', fullLayer.field]);
+    }
+    if(fullLayer.field.startsWith('item')) {
+      console.log('these are items');
+      map.addLayer({ // add values in each layer
+        "id": fullLayer.name,
+        "type": fullLayer.styleType,
+        "source": "markers",
+        "layout": {
+          "text-field": fullLayer.layout['text-field'],
+          "text-font": fullLayer.layout['text-font'],
+        },
+        "paint": {
+          "text-halo-width": fullLayer.paint['text-halo-width'],
+          "text-halo-color": fullLayer.paint['text-halo-color'],
+          "text-color": fullLayer.paint['text-color']
+        }
+      });
+      for(n = 0; n < geojson.features.length + 1; n++) {
+        if(n === i) {
+          map.setFilter(fullLayer.name, ['==', 'field', 'item'+i]);
+        }
       }
-    });
-    for(n = 0; n < geojson.features.length + 1; n++) {
-      if(n === i) {
-        map.setFilter(fullLayer.name, ['==', 'field', 'item'+i]);
-      }
+    } else {  // add color
+      console.log('this is diff');
     }
   });
 });

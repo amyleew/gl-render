@@ -41,7 +41,6 @@ feature = {
 };
 geojson.features.push(feature);
 
-
 // pull out specific layers for labels
 allLayers.forEach(function(layer) { // let's access each layer
   // find the labels for places
@@ -49,7 +48,6 @@ allLayers.forEach(function(layer) { // let's access each layer
     choiceLayers.push(layer);
   }
 });
-
 // starting lng and lat
 var startLng = -122.643127;
 var startLat = 48.35436;
@@ -92,7 +90,6 @@ function creategeojson(styleData) {
         }
       };
       geojson.features.push(feature);
-
       // loop in colors
       // if(i < 3) {
       //   newColorLng = startColorLng + (minusColorLng * i);
@@ -121,35 +118,35 @@ function creategeojson(styleData) {
       //   newColorLat = startColorLat + ((minusColorLat * i)*6);
       //   newColorLng = startColorLng + ((minusColorLng * i)*6);
       // }
-    //   feature = {
-    //     'type': 'Feature',
-    //     'properties': {
-    //       'field': 'color' + i,
-    //       'name': 'color_' + layer.id,
-    //       'styleType': "symbol",
-    //       'layout': {
-    //         'text-field': 'Title',
-    //         "text-font": [
-    //           "DIN Offc Pro Medium",
-    //           "Arial Unicode MS Regular"
-    //         ],
-    //       },
-    //       'paint': {
-    //         'text-color': layer.paint['text-color'],
-    //         "text-halo-width": 0,
-    //         'text-halo-color': layer.paint['text-halo-color'],
-    //         'text-blur': 0
-    //       }
-    //     },
-    //     'geometry': {
-    //       'type': 'Point',
-    //       'coordinates': [
-    //         newColorLng,
-    //         newColorLat
-    //       ]
-    //     }
-    // };
-    // geojson.features.push(feature);
+      feature = {
+        'type': 'Feature',
+        'properties': {
+          'field': 'color' + i,
+          'name': 'color_' + layer.id,
+          'styleType': "symbol",
+          'layout': {
+            'text-field': 'Title',
+            "text-font": [
+              "DIN Offc Pro Medium",
+              "Arial Unicode MS Regular"
+            ],
+          },
+          'paint': {
+            'text-color': layer.paint['text-color'],
+            "text-halo-width": 0,
+            'text-halo-color': layer.paint['text-halo-color'],
+            'text-blur': 0
+          }
+        },
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [
+            newColorLng,
+            newColorLat
+          ]
+        }
+    };
+    geojson.features.push(feature);
   });
 }
 

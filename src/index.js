@@ -16,30 +16,50 @@ var map = new mapboxgl.Map({
 });
 
 map.on('load', function () {
-  var sourceObj = new mapboxgl.GeoJSONSource({
-    data: geojson
-  });
+  var sourceObj = new mapboxgl.GeoJSONSource({data: geojson});
   map.addSource("markers", sourceObj);
-  geojson.features.forEach(function(layer, i) { // add geojson features
+  geojson.features.forEach(function(layer, i) { // add title
     var fullLayer = layer.properties;
-    map.addLayer({ // add values in each layer
-      "id": fullLayer.name,
-      "type": fullLayer.styleType,
-      "source": "markers",
-      "layout": {
-        "text-field": fullLayer.layout['text-field'],
-        "text-font": fullLayer.layout['text-font'],
-      },
-      "paint": {
-        "text-halo-width": fullLayer.paint['text-halo-width'],
-        "text-halo-color": fullLayer.paint['text-halo-color'],
-        "text-color": fullLayer.paint['text-color']
+    if(fullLayer.field === 'title') {
+      map.addLayer({ // add values in each layer
+        "id": fullLayer.name,
+        "type": fullLayer.styleType,
+        "source": "markers",
+        "layout": {
+          "text-field": fullLayer.layout['text-field'],
+          "text-font": fullLayer.layout['text-font'],
+        },
+        "paint": {
+          "text-halo-width": fullLayer.paint['text-halo-width'],
+          "text-halo-color": fullLayer.paint['text-halo-color'],
+          "text-color": fullLayer.paint['text-color']
+        }
+      });
+      map.setFilter(fullLayer.name, ['==', 'field', fullLayer.field]);
+    }
+    if(fullLayer.field.startsWith('item')) {
+      console.log('these are items');
+      map.addLayer({ // add values in each layer
+        "id": fullLayer.name,
+        "type": fullLayer.styleType,
+        "source": "markers",
+        "layout": {
+          "text-field": fullLayer.layout['text-field'],
+          "text-font": fullLayer.layout['text-font'],
+        },
+        "paint": {
+          "text-halo-width": fullLayer.paint['text-halo-width'],
+          "text-halo-color": fullLayer.paint['text-halo-color'],
+          "text-color": fullLayer.paint['text-color']
+        }
+      });
+      for(n = 0; n < geojson.features.length + 1; n++) {
+        if(n === i) {
+          map.setFilter(fullLayer.name, ['==', 'field', 'item'+i]);
+        }
       }
-    });
-    for(n = 0; n < geojson.features.length + 1; n++) {
-      if(n === i) {
-        map.setFilter(fullLayer.name, ['==', 'field', 'item'+i]);
-      }
+    } else {  // add color
+      console.log('this is diff');
     }
   });
 });
