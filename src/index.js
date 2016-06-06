@@ -40,7 +40,9 @@ map.on('load', function () {
       });
       map.setFilter(fullLayer.name, ['==', 'field', fullLayer.field]);
     }
+    console.log('item'+i);
     if(fullLayer.field.startsWith('item')) {
+      // console.log(fullLayer.name);
       map.addLayer({ // add values in each layer
         "id": fullLayer.name,
         "type": fullLayer.styleType,
@@ -60,8 +62,23 @@ map.on('load', function () {
           map.setFilter(fullLayer.name, ['==', 'field', 'item'+i]);
         }
       }
-    } else {
-      console.log('this is diff');
+    }
+    if(fullLayer.field.startsWith('color')) {  // add color
+    //   colors.push(fullLayer.paint['text-color']);
+    // }
+        map.addLayer({ // add values in each layer
+          "id": fullLayer.name,
+          "type": fullLayer.styleType,
+          "source": "markers",
+          "paint": {
+            "circle-color": fullLayer.paint['text-halo-color']
+          }
+        });
+        for(o = 0; o < geojson.features.length + 1; o++) {
+          if(o === i) {
+            map.setFilter(fullLayer.name, ['==', 'field', 'color'+i]);
+        }
+      }
     }
   });
 });

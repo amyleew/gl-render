@@ -42660,62 +42660,64 @@ function creategeojson(styleData) {
       geojson.features.push(feature);
 
       // loop in colors
-      // if(i < 3) {
-      //   newColorLng = startColorLng + (minusColorLng * i);
-      // }
-      // if(i >= 3 && i < 6) {
-      //   newColorLat = startColorLat + (minusColorLat * i);
-      //   newColorLng = startColorLng + (minusColorLng * i);
-      // }
-      // if(i >= 6 && i < 9) {
-      //   newColorLat = startColorLat + ((minusColorLat * i)*2);
-      //   newColorLng = startColorLng + ((minusColorLng * i)*2);
-      // }
-      // if(i >= 9 && i < 12) {
-      //   newColorLat = startColorLat + ((minusColorLat * i)*3);
-      //   newColorLng = startColorLng + ((minusColorLng * i)*3);
-      // }
-      // if(i >= 12 && i < 15) {
-      //   newColorLat = startColorLat + ((minusColorLat * i)*4);
-      //   newColorLng = startColorLng + ((minusColorLng * i)*4);
-      // }
-      // if(i >= 15 && i < 18) {
-      //   newColorLat = startColorLat + ((minusColorLat * i)*5);
-      //   newColorLng = startColorLng + ((minusColorLng * i)*5);
-      // }
-      // if(i >= 18 && i < 21) {
-      //   newColorLat = startColorLat + ((minusColorLat * i)*6);
-      //   newColorLng = startColorLng + ((minusColorLng * i)*6);
-      // }
-    //   feature = {
-    //     'type': 'Feature',
-    //     'properties': {
-    //       'field': 'color' + i,
-    //       'name': 'color_' + layer.id,
-    //       'styleType': "symbol",
-    //       'layout': {
-    //         'text-field': 'Title',
-    //         "text-font": [
-    //           "DIN Offc Pro Medium",
-    //           "Arial Unicode MS Regular"
-    //         ],
-    //       },
-    //       'paint': {
-    //         'text-color': layer.paint['text-color'],
-    //         "text-halo-width": 0,
-    //         'text-halo-color': layer.paint['text-halo-color'],
-    //         'text-blur': 0
-    //       }
-    //     },
-    //     'geometry': {
-    //       'type': 'Point',
-    //       'coordinates': [
-    //         newColorLng,
-    //         newColorLat
-    //       ]
-    //     }
-    // };
-    // geojson.features.push(feature);
+      if(i < 3) {
+        newColorLng = startColorLng + (minusColorLng * i);
+        // console.log(i);
+      }
+      if(i >= 3 && i < 6) {
+        newColorLat = startColorLat + (minusColorLat * i);
+        newColorLng = startColorLng + (minusColorLng * i);
+        // console.log(i);
+      }
+      if(i >= 6 && i < 9) {
+        newColorLat = startColorLat + ((minusColorLat * i)*2);
+        newColorLng = startColorLng + ((minusColorLng * i)*2);
+      }
+      if(i >= 9 && i < 12) {
+        newColorLat = startColorLat + ((minusColorLat * i)*3);
+        newColorLng = startColorLng + ((minusColorLng * i)*3);
+      }
+      if(i >= 12 && i < 15) {
+        newColorLat = startColorLat + ((minusColorLat * i)*4);
+        newColorLng = startColorLng + ((minusColorLng * i)*4);
+      }
+      if(i >= 15 && i < 18) {
+        newColorLat = startColorLat + ((minusColorLat * i)*5);
+        newColorLng = startColorLng + ((minusColorLng * i)*5);
+      }
+      if(i >= 18 && i < 21) {
+        newColorLat = startColorLat + ((minusColorLat * i)*6);
+        newColorLng = startColorLng + ((minusColorLng * i)*6);
+      }
+      feature = {
+        'type': 'Feature',
+        'properties': {
+          'field': 'color' + i,
+          'name': 'color_' + layer.id,
+          'styleType': "circle",
+          'layout': {
+            'text-field': 'Title',
+            "text-font": [
+              "DIN Offc Pro Medium",
+              "Arial Unicode MS Regular"
+            ],
+          },
+          'paint': {
+            'text-color': layer.paint['text-color'],
+            "text-halo-width": 0,
+            'text-halo-color': layer.paint['text-halo-color'],
+            'text-blur': 0
+          }
+        },
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [
+            newColorLng,
+            newColorLat
+          ]
+        }
+    };
+    geojson.features.push(feature);
   });
 }
 
@@ -42768,7 +42770,9 @@ map.on('load', function () {
       });
       map.setFilter(fullLayer.name, ['==', 'field', fullLayer.field]);
     }
+    console.log('item'+i);
     if(fullLayer.field.startsWith('item')) {
+      // console.log(fullLayer.name);
       map.addLayer({ // add values in each layer
         "id": fullLayer.name,
         "type": fullLayer.styleType,
@@ -42788,8 +42792,23 @@ map.on('load', function () {
           map.setFilter(fullLayer.name, ['==', 'field', 'item'+i]);
         }
       }
-    } else {
-      console.log('this is diff');
+    }
+    if(fullLayer.field.startsWith('color')) {  // add color
+    //   colors.push(fullLayer.paint['text-color']);
+    // }
+        map.addLayer({ // add values in each layer
+          "id": fullLayer.name,
+          "type": fullLayer.styleType,
+          "source": "markers",
+          "paint": {
+            "circle-color": fullLayer.paint['text-halo-color']
+          }
+        });
+        for(o = 0; o < geojson.features.length + 1; o++) {
+          if(o === i) {
+            map.setFilter(fullLayer.name, ['==', 'field', 'color'+i]);
+        }
+      }
     }
   });
 });
