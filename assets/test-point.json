@@ -1,0 +1,362 @@
+{
+  "version": 8,
+  "name": "Mapbox Satellite Streets",
+  "metadata": {
+    "mapbox:autocomposite": true,
+    "mapbox:type": "default",
+    "mapbox:trackposition": false
+  },
+  "sources": {
+    "composite": {
+      "url": "mapbox://mapbox.mapbox-streets-v7",
+      "type": "vector"
+    },
+    "mapbox://mapbox.satellite": {
+      "url": "mapbox://mapbox.satellite",
+      "type": "raster",
+      "tileSize": 256
+    }
+  },
+  "sprite": "mapbox://sprites/mapbox/satellite-streets-v9",
+  "glyphs": "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
+  "layers": [
+    {
+      "id": "state-label-sm",
+      "type": "symbol",
+      "metadata": {
+        "mapbox:group": "1444856151690.9143"
+      },
+      "source": "composite",
+      "source-layer": "state_label",
+      "minzoom": 3,
+      "maxzoom": 9,
+      "filter": [
+        "<",
+        "area",
+        20000
+      ],
+      "layout": {
+        "text-size": {
+          "base": 1,
+          "stops": [
+            [
+              6,
+              10
+            ],
+            [
+              9,
+              14
+            ]
+          ]
+        },
+        "text-transform": "uppercase",
+        "text-font": [
+          "DIN Offc Pro Bold",
+          "Arial Unicode MS Bold"
+        ],
+        "text-field": {
+          "base": 1,
+          "stops": [
+            [
+              0,
+              "{abbr}"
+            ],
+            [
+              6,
+              "{name_en}"
+            ]
+          ]
+        },
+        "text-letter-spacing": 0.15,
+        "text-max-width": 5
+      },
+      "paint": {
+        "text-opacity": 1,
+        "text-color": "hsl(0, 0%, 50%)",
+        "text-halo-color": "hsla(0, 0%, 10%, 0.75)",
+        "text-halo-width": 1,
+        "text-halo-blur": 0
+      }
+    },
+    {
+      "id": "state-label-md",
+      "type": "symbol",
+      "metadata": {
+        "mapbox:group": "1444856151690.9143"
+      },
+      "source": "composite",
+      "source-layer": "state_label",
+      "minzoom": 3,
+      "maxzoom": 8,
+      "filter": [
+        "all",
+        [
+          "<",
+          "area",
+          80000
+        ],
+        [
+          ">=",
+          "area",
+          20000
+        ]
+      ],
+      "layout": {
+        "text-size": {
+          "base": 1,
+          "stops": [
+            [
+              5,
+              10
+            ],
+            [
+              8,
+              16
+            ]
+          ]
+        },
+        "text-transform": "uppercase",
+        "text-font": [
+          "DIN Offc Pro Bold",
+          "Arial Unicode MS Bold"
+        ],
+        "text-field": {
+          "base": 1,
+          "stops": [
+            [
+              0,
+              "{abbr}"
+            ],
+            [
+              5,
+              "{name_en}"
+            ]
+          ]
+        },
+        "text-letter-spacing": 0.15,
+        "text-max-width": 6
+      },
+      "paint": {
+        "text-opacity": 1,
+        "text-color": "hsl(0, 0%, 50%)",
+        "text-halo-color": "hsla(0, 0%, 10%, 0.75)",
+        "text-halo-width": 1,
+        "text-halo-blur": 0
+      }
+    },
+    {
+      "id": "state-label-lg",
+      "type": "symbol",
+      "metadata": {
+        "mapbox:group": "1444856151690.9143"
+      },
+      "source": "composite",
+      "source-layer": "state_label",
+      "minzoom": 3,
+      "maxzoom": 7,
+      "filter": [
+        ">=",
+        "area",
+        80000
+      ],
+      "layout": {
+        "text-size": {
+          "base": 1,
+          "stops": [
+            [
+              4,
+              10
+            ],
+            [
+              7,
+              18
+            ]
+          ]
+        },
+        "text-transform": "uppercase",
+        "text-font": [
+          "DIN Offc Pro Bold",
+          "Arial Unicode MS Bold"
+        ],
+        "text-padding": 1,
+        "text-field": {
+          "base": 1,
+          "stops": [
+            [
+              0,
+              "{abbr}"
+            ],
+            [
+              4,
+              "{name_en}"
+            ]
+          ]
+        },
+        "text-letter-spacing": 0.15,
+        "text-max-width": 6
+      },
+      "paint": {
+        "text-opacity": 1,
+        "text-color": "hsl(0, 0%, 50%)",
+        "text-halo-color": "hsla(0, 0%, 10%, 0.75)",
+        "text-halo-width": 1,
+        "text-halo-blur": 0
+      }
+    },
+    {
+      "id": "country-label-sm",
+      "type": "symbol",
+      "metadata": {
+        "mapbox:group": "1444856144497.7825"
+      },
+      "source": "composite",
+      "source-layer": "country_label",
+      "minzoom": 1,
+      "maxzoom": 10,
+      "filter": [
+        ">=",
+        "scalerank",
+        5
+      ],
+      "layout": {
+        "text-field": "{name_en}",
+        "text-max-width": 6,
+        "text-font": [
+          "DIN Offc Pro Medium",
+          "Arial Unicode MS Regular"
+        ],
+        "text-size": {
+          "base": 0.9,
+          "stops": [
+            [
+              5,
+              14
+            ],
+            [
+              9,
+              22
+            ]
+          ]
+        }
+      },
+      "paint": {
+        "text-halo-width": 1.25,
+        "text-halo-color": "hsla(0, 0%, 10%, 0.75)",
+        "text-color": "hsl(0, 0%, 45%)",
+        "text-halo-blur": 0
+      }
+    },
+    {
+      "id": "country-label-md",
+      "type": "symbol",
+      "metadata": {
+        "mapbox:group": "1444856144497.7825"
+      },
+      "source": "composite",
+      "source-layer": "country_label",
+      "minzoom": 1,
+      "maxzoom": 8,
+      "filter": [
+        "in",
+        "scalerank",
+        3,
+        4
+      ],
+      "layout": {
+        "text-field": {
+          "base": 1,
+          "stops": [
+            [
+              0,
+              "{code}"
+            ],
+            [
+              2,
+              "{name_en}"
+            ]
+          ]
+        },
+        "text-max-width": 6,
+        "text-font": [
+          "DIN Offc Pro Medium",
+          "Arial Unicode MS Regular"
+        ],
+        "text-size": {
+          "base": 1,
+          "stops": [
+            [
+              3,
+              10
+            ],
+            [
+              8,
+              24
+            ]
+          ]
+        }
+      },
+      "paint": {
+        "text-halo-width": 1.25,
+        "text-halo-color": "hsla(0, 0%, 10%, 0.75)",
+        "text-color": "hsl(0, 0%, 45%)",
+        "text-halo-blur": 0
+      }
+    },
+    {
+      "id": "country-label-lg",
+      "type": "symbol",
+      "metadata": {
+        "mapbox:group": "1444856144497.7825"
+      },
+      "source": "composite",
+      "source-layer": "country_label",
+      "minzoom": 1,
+      "maxzoom": 7,
+      "filter": [
+        "in",
+        "scalerank",
+        1,
+        2
+      ],
+      "layout": {
+        "text-field": "{name_en}",
+        "text-max-width": {
+          "base": 1,
+          "stops": [
+            [
+              0,
+              5
+            ],
+            [
+              3,
+              6
+            ]
+          ]
+        },
+        "text-font": [
+          "DIN Offc Pro Medium",
+          "Arial Unicode MS Regular"
+        ],
+        "text-size": {
+          "base": 1,
+          "stops": [
+            [
+              1,
+              10
+            ],
+            [
+              6,
+              24
+            ]
+          ]
+        }
+      },
+      "paint": {
+        "text-halo-width": 1.25,
+        "text-halo-color": "hsla(0, 0%, 10%, 0.75)",
+        "text-color": "hsl(0, 0%, 45%)",
+        "text-halo-blur": 0
+      }
+    }
+  ]
+}

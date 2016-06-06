@@ -1,0 +1,758 @@
+{
+  "version": 8,
+  "name": "Mapbox Satellite Streets",
+  "metadata": {
+    "mapbox:autocomposite": true,
+    "mapbox:type": "default",
+    "mapbox:trackposition": false
+  },
+  "sources": {
+    "composite": {
+      "url": "mapbox://mapbox.mapbox-streets-v7",
+      "type": "vector"
+    },
+    "mapbox://mapbox.satellite": {
+      "url": "mapbox://mapbox.satellite",
+      "type": "raster",
+      "tileSize": 256
+    }
+  },
+  "sprite": "mapbox://sprites/mapbox/satellite-streets-v9",
+  "glyphs": "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
+  "layers": [
+    {
+      "id": "tunnel-secondary-tertiary case",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "1460127465037.9006"
+      },
+      "source": "composite",
+      "source-layer": "road",
+      "filter": [
+        "all",
+        [
+          "in",
+          "class",
+          "secondary",
+          "tertiary"
+        ],
+        [
+          "==",
+          "structure",
+          "tunnel"
+        ]
+      ],
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#fff",
+        "line-opacity": {
+          "base": 1,
+          "stops": [
+            [
+              13,
+              0
+            ],
+            [
+              13.5,
+              0.5
+            ],
+            [
+              16,
+              0.75
+            ],
+            [
+              18,
+              0.35
+            ]
+          ]
+        },
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              2
+            ]
+          ]
+        },
+        "line-dasharray": [
+          3,
+          3
+        ],
+        "line-blur": 0,
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              12
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "tunnel-street_limited case",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "1460127465037.9006"
+      },
+      "source": "composite",
+      "source-layer": "road",
+      "filter": [
+        "all",
+        [
+          "==",
+          "class",
+          "street_limited"
+        ],
+        [
+          "==",
+          "structure",
+          "tunnel"
+        ]
+      ],
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#fff",
+        "line-opacity": {
+          "base": 1,
+          "stops": [
+            [
+              13,
+              0
+            ],
+            [
+              13.5,
+              0.5
+            ],
+            [
+              16,
+              0.75
+            ],
+            [
+              18,
+              0.35
+            ]
+          ]
+        },
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              2
+            ]
+          ]
+        },
+        "line-dasharray": [
+          3,
+          3
+        ],
+        "line-blur": 0,
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              12
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "tunnel-street case",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "1460127465037.9006"
+      },
+      "source": "composite",
+      "source-layer": "road",
+      "filter": [
+        "all",
+        [
+          "==",
+          "class",
+          "street"
+        ],
+        [
+          "==",
+          "structure",
+          "tunnel"
+        ]
+      ],
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "hsl(0, 28%, 93%)",
+        "line-opacity": {
+          "base": 1,
+          "stops": [
+            [
+              13,
+              0
+            ],
+            [
+              13.5,
+              0.5
+            ],
+            [
+              16,
+              0.75
+            ],
+            [
+              18,
+              0.35
+            ]
+          ]
+        },
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              2
+            ]
+          ]
+        },
+        "line-dasharray": [
+          3,
+          3
+        ],
+        "line-blur": 0,
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              32
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "tunnel-primary-case",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "1460127465037.9006"
+      },
+      "source": "composite",
+      "source-layer": "road",
+      "filter": [
+        "all",
+        [
+          "==",
+          "class",
+          "primary"
+        ],
+        [
+          "==",
+          "structure",
+          "tunnel"
+        ]
+      ],
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#fff",
+        "line-opacity": {
+          "base": 1,
+          "stops": [
+            [
+              13,
+              0
+            ],
+            [
+              13.5,
+              0.5
+            ],
+            [
+              16,
+              0.75
+            ],
+            [
+              18,
+              0.35
+            ]
+          ]
+        },
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              2
+            ]
+          ]
+        },
+        "line-dasharray": [
+          3,
+          3
+        ],
+        "line-blur": 0,
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              18
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "tunnel-trunk_link-case",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "1460127465037.9006"
+      },
+      "source": "composite",
+      "source-layer": "road",
+      "filter": [
+        "all",
+        [
+          "==",
+          "structure",
+          "tunnel"
+        ],
+        [
+          "==",
+          "type",
+          "trunk_link"
+        ]
+      ],
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "hsl(0, 28%, 93%)",
+        "line-opacity": {
+          "base": 1,
+          "stops": [
+            [
+              13,
+              0
+            ],
+            [
+              13.5,
+              0.5
+            ],
+            [
+              16,
+              0.75
+            ],
+            [
+              18,
+              0.35
+            ]
+          ]
+        },
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              2
+            ]
+          ]
+        },
+        "line-dasharray": [
+          3,
+          3
+        ],
+        "line-blur": 0,
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              32
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "tunnel-motorway_link-case",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "1460127465037.9006"
+      },
+      "source": "composite",
+      "source-layer": "road",
+      "filter": [
+        "all",
+        [
+          "==",
+          "class",
+          "motorway_link"
+        ],
+        [
+          "==",
+          "structure",
+          "tunnel"
+        ]
+      ],
+      "layout": {
+        "line-cap": {
+          "base": 1,
+          "stops": [
+            [
+              10,
+              "round"
+            ],
+            [
+              12,
+              "butt"
+            ]
+          ]
+        },
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#fff",
+        "line-opacity": {
+          "base": 1,
+          "stops": [
+            [
+              13,
+              0
+            ],
+            [
+              13.5,
+              0.5
+            ],
+            [
+              16,
+              0.75
+            ],
+            [
+              18,
+              0.35
+            ]
+          ]
+        },
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              12,
+              0.5
+            ],
+            [
+              16,
+              2
+            ]
+          ]
+        },
+        "line-dasharray": [
+          3,
+          3
+        ],
+        "line-blur": 0,
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              18
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "tunnel-trunk-case",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "1460127465037.9006"
+      },
+      "source": "composite",
+      "source-layer": "road",
+      "filter": [
+        "all",
+        [
+          "==",
+          "class",
+          "trunk"
+        ],
+        [
+          "==",
+          "structure",
+          "tunnel"
+        ]
+      ],
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#fff",
+        "line-opacity": {
+          "base": 1,
+          "stops": [
+            [
+              14,
+              0.75
+            ],
+            [
+              16,
+              0.5
+            ]
+          ]
+        },
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              16,
+              2
+            ]
+          ]
+        },
+        "line-dasharray": [
+          3,
+          3
+        ],
+        "line-blur": 0,
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              18
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "tunnel-motorway-case",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "1460127465037.9006"
+      },
+      "source": "composite",
+      "source-layer": "road",
+      "filter": [
+        "all",
+        [
+          "==",
+          "class",
+          "motorway"
+        ],
+        [
+          "==",
+          "structure",
+          "tunnel"
+        ]
+      ],
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#fff",
+        "line-opacity": {
+          "base": 1,
+          "stops": [
+            [
+              14,
+              0.75
+            ],
+            [
+              16,
+              0.5
+            ]
+          ]
+        },
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              16,
+              2
+            ]
+          ]
+        },
+        "line-dasharray": [
+          3,
+          3
+        ],
+        "line-blur": 0,
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              18
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "tunnel-path",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "1460127465037.9006"
+      },
+      "source": "composite",
+      "source-layer": "road",
+      "filter": [
+        "all",
+        [
+          "==",
+          "class",
+          "path"
+        ],
+        [
+          "==",
+          "structure",
+          "tunnel"
+        ],
+        [
+          "!=",
+          "type",
+          "steps"
+        ]
+      ],
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "hsl(0, 0%, 86%)",
+        "line-opacity": {
+          "base": 1,
+          "stops": [
+            [
+              14,
+              0.25
+            ],
+            [
+              15,
+              0.4
+            ],
+            [
+              16,
+              0.75
+            ]
+          ]
+        },
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              14,
+              1
+            ],
+            [
+              18,
+              2.5
+            ]
+          ]
+        },
+        "line-dasharray": {
+          "base": 1,
+          "stops": [
+            [
+              14,
+              [
+                1,
+                0
+              ]
+            ],
+            [
+              15,
+              [
+                1.75,
+                1
+              ]
+            ],
+            [
+              16,
+              [
+                1,
+                0.75
+              ]
+            ],
+            [
+              17,
+              [
+                1,
+                0.5
+              ]
+            ]
+          ]
+        }
+      }
+    }
+  ]
+}
