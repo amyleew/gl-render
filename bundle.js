@@ -10061,7 +10061,7 @@ module.exports={
       "paint": {
         "text-opacity": 1,
         "text-color": "hsl(0, 0%, 50%)",
-        "text-halo-color": "hsla(0, 0%, 10%, 0.75)",
+        "text-halo-color": "hsla(225, 100%, 50%, 1)",
         "text-halo-width": 1,
         "text-halo-blur": 0
       }
@@ -10127,7 +10127,7 @@ module.exports={
       "paint": {
         "text-opacity": 1,
         "text-color": "hsl(0, 0%, 50%)",
-        "text-halo-color": "hsla(0, 0%, 10%, 0.75)",
+        "text-halo-color": "hsla(225, 100%, 50%, 1)",
         "text-halo-width": 1,
         "text-halo-blur": 0
       }
@@ -10186,7 +10186,7 @@ module.exports={
       "paint": {
         "text-opacity": 1,
         "text-color": "hsl(0, 0%, 50%)",
-        "text-halo-color": "hsla(0, 0%, 10%, 0.75)",
+        "text-halo-color": "hsla(225, 100%, 50%, 1)",
         "text-halo-width": 1,
         "text-halo-blur": 0
       }
@@ -10229,7 +10229,7 @@ module.exports={
       },
       "paint": {
         "text-halo-width": 1.25,
-        "text-halo-color": "hsla(0, 0%, 10%, 0.75)",
+        "text-halo-color": "hsla(225, 100%, 50%, 1)",
         "text-color": "hsl(0, 0%, 45%)",
         "text-halo-blur": 0
       }
@@ -10285,7 +10285,7 @@ module.exports={
       },
       "paint": {
         "text-halo-width": 1.25,
-        "text-halo-color": "hsla(0, 0%, 10%, 0.75)",
+        "text-halo-color": "hsla(225, 100%, 50%, 1)",
         "text-color": "hsl(0, 0%, 45%)",
         "text-halo-blur": 0
       }
@@ -10341,7 +10341,7 @@ module.exports={
       },
       "paint": {
         "text-halo-width": 1.25,
-        "text-halo-color": "hsla(0, 0%, 10%, 0.75)",
+        "text-halo-color": "hsla(225, 100%, 50%, 1)",
         "text-color": "hsl(0, 0%, 45%)",
         "text-halo-blur": 0
       }
@@ -43000,8 +43000,8 @@ var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mslee/ciod14n04007aaqm7iun2scux',
   hash: true,
-  zoom: 0,
-  center: [0,0]
+  zoom: 4,
+  center: [-104.68,32.69]
 });
 
 map.on('load', function () {

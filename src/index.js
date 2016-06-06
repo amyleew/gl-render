@@ -11,8 +11,8 @@ var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mslee/ciod14n04007aaqm7iun2scux',
   hash: true,
-  zoom: 0,
-  center: [0,0]
+  zoom: 4,
+  center: [-104.68,32.69]
 });
 
 map.on('load', function () {
