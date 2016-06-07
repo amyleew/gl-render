@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "name": "Mapbox Satellite Streets",
+  "name": "Style point",
   "metadata": {
     "mapbox:autocomposite": true,
     "mapbox:type": "default",

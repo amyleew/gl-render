@@ -1,7 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 module.exports={
   "version": 8,
-  "name": "Mapbox Satellite Streets",
+  "name": "Style point",
   "metadata": {
     "mapbox:autocomposite": true,
     "mapbox:type": "default",
@@ -32890,26 +32890,34 @@ var style = require('../assets/style-point.json');
 // var style = require('../assets/satellite-streets-v9.json');
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg';
+
+// generate new data source based on style
+var pointdata = generate(style);
+
+// modify the style's sources object
+style.sources['newdata'] = {
+  'type': 'geojson',
+  'data': pointdata
+};
+
+// change all the layer refs to the new data source
+style.layers.forEach(function(layer) {
+  if(layer.source !== undefined) {
+    layer.source = 'newdata';
+  }
+});
+
+// initalize the map
 var map = new mapboxgl.Map({
   container: 'map',
-  style: style, // 'mapbox://styles/mslee/ciod14n04007aaqm7iun2scux',
+  style: style,
   hash: true,
   zoom: 3,
   center: [-102.30,33.43]
 });
 
-map.on('load', function () {
-  var pointdata = generate(style); // run function from required file to generate data
-  map.addSource('newdata', {
-    'type': 'geojson',
-    'data': pointdata
-  });
-  // reset source call
-  style.layers.forEach(function(layer) {
-    if(layer.source !== undefined) {
-      layer.source = 'newdata';
-    }
-  });
-  console.log(style);
-});
+// // map.on('load', function () {
+// // });
+
+
 },{"../assets/style-point.json":1,"./generate.js":184,"fs":3,"mapbox-gl":72}]},{},[184,185]);
