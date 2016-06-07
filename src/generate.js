@@ -1,8 +1,8 @@
 var fs = require('fs');
 var _ = require('underscore-node');
-var style = require('../assets/test-point.json');
-// var style = require('../assets/test-line.json');
-// var style = require('../assets/test-poly.json');
+var style = require('../assets/style-point.json');
+// var style = require('../assets/style-line.json');
+// var style = require('../assets/style-poly.json');
 // var style = require('../assets/satellite-streets-v9.json');
 
 var allLayers = style.layers;
@@ -33,7 +33,7 @@ allLayers.forEach(function(layer) { // let's access each layer
   }
 });
 
-function generate(styleData) { // creategeojson data file
+function generate(data) { // creategeojson data file
   pointLayers.forEach(function(layer, i) {
     newLat = startLat - (minusLat * i);
     feature = {
@@ -55,10 +55,8 @@ function generate(styleData) { // creategeojson data file
   });
 }
 
-// fs.writeFile('test-point.geojson', JSON.stringify(geojson, null, 2));
+// to test data generated
+// generate(geojson);
+// fs.writeFile('data-point.geojson', JSON.stringify(geojson, null, 2));
 
-// // console.log(geojson);
-// console.log(geojson.features);
-// console.log(geojson.features[0].properties);
-// console.log(geojson.features[0].geometry);
 module.exports = generate;

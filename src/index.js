@@ -1,9 +1,9 @@
 var fs = require('fs');
 var mapboxgl = require('mapbox-gl');
 var generate = require('./generate.js');
-var style = require('../assets/test-point.json');
-// var style = require('../assets/test-line.json');
-// var style = require('../assets/test-poly.json');
+var style = require('../assets/style-point.json');
+// var style = require('../assets/style-line.json');
+// var style = require('../assets/style-poly.json');
 // var style = require('../assets/satellite-streets-v9.json');
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg';
