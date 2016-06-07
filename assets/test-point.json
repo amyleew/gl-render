@@ -59,11 +59,11 @@
           "stops": [
             [
               0,
-              "{abbr}"
+              "{name}"
             ],
             [
               6,
-              "{name_en}"
+              "{name}"
             ]
           ]
         },
@@ -72,7 +72,7 @@
       },
       "paint": {
         "text-opacity": 1,
-        "text-color": "hsl(0, 0%, 50%)",
+        "text-color": "hsl(360, 100%, 100%)",
         "text-halo-color": "hsla(225, 100%, 50%, 1)",
         "text-halo-width": 1,
         "text-halo-blur": 0
@@ -125,11 +125,11 @@
           "stops": [
             [
               0,
-              "{abbr}"
+              "{name}"
             ],
             [
               5,
-              "{name_en}"
+              "{name}"
             ]
           ]
         },
@@ -138,7 +138,7 @@
       },
       "paint": {
         "text-opacity": 1,
-        "text-color": "hsl(0, 0%, 50%)",
+        "text-color": "hsl(360, 100%, 100%)",
         "text-halo-color": "hsla(225, 100%, 50%, 1)",
         "text-halo-width": 1,
         "text-halo-blur": 0
@@ -184,11 +184,11 @@
           "stops": [
             [
               0,
-              "{abbr}"
+              "{name}"
             ],
             [
               4,
-              "{name_en}"
+              "{name}"
             ]
           ]
         },
@@ -197,7 +197,7 @@
       },
       "paint": {
         "text-opacity": 1,
-        "text-color": "hsl(0, 0%, 50%)",
+        "text-color": "hsl(360, 100%, 100%)",
         "text-halo-color": "hsla(225, 100%, 50%, 1)",
         "text-halo-width": 1,
         "text-halo-blur": 0
@@ -219,7 +219,7 @@
         5
       ],
       "layout": {
-        "text-field": "{name_en}",
+        "text-field": "{name}",
         "text-max-width": 6,
         "text-font": [
           "DIN Offc Pro Medium",
@@ -242,7 +242,7 @@
       "paint": {
         "text-halo-width": 1.25,
         "text-halo-color": "hsla(225, 100%, 50%, 1)",
-        "text-color": "hsl(0, 0%, 45%)",
+        "text-color": "hsl(360, 100%, 100%)",
         "text-halo-blur": 0
       }
     },
@@ -272,7 +272,7 @@
             ],
             [
               2,
-              "{name_en}"
+              "{name}"
             ]
           ]
         },
@@ -298,7 +298,7 @@
       "paint": {
         "text-halo-width": 1.25,
         "text-halo-color": "hsla(225, 100%, 50%, 1)",
-        "text-color": "hsl(0, 0%, 45%)",
+        "text-color": "hsl(360, 100%, 100%)",
         "text-halo-blur": 0
       }
     },
@@ -319,7 +319,7 @@
         2
       ],
       "layout": {
-        "text-field": "{name_en}",
+        "text-field": "{name}",
         "text-max-width": {
           "base": 1,
           "stops": [
@@ -354,7 +354,7 @@
       "paint": {
         "text-halo-width": 1.25,
         "text-halo-color": "hsla(225, 100%, 50%, 1)",
-        "text-color": "hsl(0, 0%, 45%)",
+        "text-color": "hsl(360, 100%, 100%)",
         "text-halo-blur": 0
       }
     }

@@ -10,9 +10,9 @@ var pointLayers = [];
 var polyLayers = [];
 var lineLayers = [];
 // starting lng and lat
-var startLng = 0;
-var startLat = 0;
-var minusLat = 0.00236;
+var startLng = -122.6431;
+var startLat = 48.3543;
+var minusLat = 3;
 var newLat;
 
 var geojson = {
@@ -22,8 +22,9 @@ var geojson = {
 
 allLayers.forEach(function(layer) { // let's access each layer
   if(layer.filter !== undefined) {
-    if(layer.type === 'line') { // only for lines
+    if(layer.type === 'symbol') { // only for lines
       pointLayers.push({  // collect type, source-layer, and filter
+      'id': layer.id,
       'type': layer.type,
       'source-layer': layer['source-layer'],
       'filter': layer.filter
@@ -32,7 +33,7 @@ allLayers.forEach(function(layer) { // let's access each layer
   }
 });
 
-function creategeojson(styleData) {
+function generate(styleData) { // creategeojson data file
   pointLayers.forEach(function(layer, i) {
     newLat = startLat - (minusLat * i);
     feature = {
@@ -54,8 +55,10 @@ function creategeojson(styleData) {
   });
 }
 
-// generate new file
-creategeojson();
+// fs.writeFile('test-point.geojson', JSON.stringify(geojson, null, 2));
 
-// console.log(geojson);
-module.exports = geojson;
+// // console.log(geojson);
+// console.log(geojson.features);
+// console.log(geojson.features[0].properties);
+// console.log(geojson.features[0].geometry);
+module.exports = generate;
