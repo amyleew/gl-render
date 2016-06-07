@@ -16,16 +16,15 @@ var map = new mapboxgl.Map({
 });
 
 map.on('load', function () {
-  var data = generate(); // run function from required file to generate data
+  var pointdata = generate(); // run function from required file to generate data
   map.addSource('newdata', {
     'type': 'geojson',
-    'data': data
+    'data': pointdata
   });
   // reset source call
   style.layers.forEach(function(layer) {
     if(layer.source !== undefined) {
       layer.source = 'newdata';
-      console.log(layer);
     }
   });
 });
