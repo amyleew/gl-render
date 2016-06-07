@@ -16,7 +16,7 @@ var map = new mapboxgl.Map({
 });
 
 map.on('load', function () {
-  var pointdata = generate(); // run function from required file to generate data
+  var pointdata = generate(style); // run function from required file to generate data
   map.addSource('newdata', {
     'type': 'geojson',
     'data': pointdata
@@ -27,4 +27,5 @@ map.on('load', function () {
       layer.source = 'newdata';
     }
   });
+  console.log(style);
 });
