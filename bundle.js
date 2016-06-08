@@ -32819,9 +32819,6 @@ module.exports.POLAR_RADIUS = 6356752.3142;
 var fs = require('fs');
 var _ = require('underscore-node');
 var style = require('../assets/style-point.json');
-// var style = require('../assets/style-line.json');
-// var style = require('../assets/style-poly.json');
-// var style = require('../assets/satellite-streets-v9.json');
 
 function generate(style) { // creategeojson data file
   var allLayers = style.layers;
@@ -32833,50 +32830,52 @@ function generate(style) { // creategeojson data file
   var startLat = 48.3543;
   var minusLat = 3;
   var newLat;
-
   var geojson = {
     "type": "FeatureCollection",
       "features": []
     };
 
   allLayers.forEach(function(layer) { // let's access each layer
-    if(layer.filter !== undefined) {
-      if(layer.type === 'symbol') { // only for lines
-        pointLayers.push({  // collect type, source-layer, and filter
+    // if(layer.filter !== undefined) {
+      if(layer.type === 'symbol') { // only for symbols
+        pointLayers.push({  // collect type and filter
         'id': layer.id,
         'type': layer.type,
-        'source-layer': layer['source-layer'],
-        'filter': layer.filter
+        'source-layer': layer['source-layer']
         });
       }
-    }
-  });
-
-  pointLayers.forEach(function(layer, i) {
-    newLat = startLat - (minusLat * i);
-    feature = {
-      'type': 'Feature',
-      'geometry': {
-        'type': 'Point',
-        'coordinates': [
-          startLng,
-          newLat
-        ]
-      },
-      'properties': {
-        'name': layer.id,
-        'source-layer': layer['source-layer'],
-        'filter': layer.filter
+      if(layer.type === 'symbol') { // only for lines
+        pointLayers.push({  // collect type and filter
+        'id': layer.id,
+        'type': layer.type,
+        'source-layer': layer['source-layer']
+        });
       }
-    };
-    geojson.features.push(feature);
+    // }
   });
-  return geojson;
-}
 
-// to test data generated
-// generate(geojson);
-// fs.writeFile('data-point.geojson', JSON.stringify(geojson, null, 2));
+  if(pointLayers !== undefined || pointLayers !== null) {
+    pointLayers.forEach(function(layer, i) {
+      newLat = startLat - (minusLat * i);
+      feature = {
+        'type': 'Feature',
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [
+            startLng,
+            newLat
+          ]
+        },
+        'properties': {
+          'name': layer.id,
+          'category': layer['source-layer']
+        }
+      };
+      geojson.features.push(feature);
+    });
+    return geojson;
+  }
+}
 
 module.exports = generate;
 
@@ -32885,23 +32884,26 @@ var fs = require('fs');
 var mapboxgl = require('mapbox-gl');
 var generate = require('./generate.js');
 var style = require('../assets/style-point.json');
-// run function from required file to generate data
+
+// generate new data from style.json
 var pointdata = generate(style);
-
 // modify the style's sources object
-style.sources['newdata'] = {
-  'type': 'geojson',
-  'data': pointdata
+style.sources = {
+  'newdata': {
+    'type': 'geojson',
+    'data': pointdata
+  }
 };
-
 // change all the layer refs to the new data source
 style.layers.forEach(function(layer) {
   if(layer.source !== undefined) {
-    // console.log(layer['source-layer']);
     delete layer['source-layer'];
+    delete layer.filter;
     layer.source = 'newdata';
   }
 });
+
+console.log(style);
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg';
 var map = new mapboxgl.Map({
