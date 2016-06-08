@@ -358,6 +358,492 @@ module.exports={
         "text-color": "hsl(360, 100%, 100%)",
         "text-halo-blur": 0
       }
+    },
+    {
+      "id": "tunnel-secondary-tertiary case",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "1460127465037.9006"
+      },
+      "source": "composite",
+      "source-layer": "road",
+      "filter": [
+        "all",
+        [
+          "in",
+          "class",
+          "secondary",
+          "tertiary"
+        ],
+        [
+          "==",
+          "structure",
+          "tunnel"
+        ]
+      ],
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#0f0",
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              2
+            ]
+          ]
+        },
+        "line-dasharray": [
+          3,
+          3
+        ],
+        "line-blur": 0,
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              12
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "tunnel-street_limited case",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "1460127465037.9006"
+      },
+      "source": "composite",
+      "source-layer": "road",
+      "filter": [
+        "all",
+        [
+          "==",
+          "class",
+          "street_limited"
+        ],
+        [
+          "==",
+          "structure",
+          "tunnel"
+        ]
+      ],
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#00f",
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              2
+            ]
+          ]
+        },
+        "line-dasharray": [
+          3,
+          3
+        ],
+        "line-blur": 0,
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              12
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "tunnel-street case",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "1460127465037.9006"
+      },
+      "source": "composite",
+      "source-layer": "road",
+      "filter": [
+        "all",
+        [
+          "==",
+          "class",
+          "street"
+        ],
+        [
+          "==",
+          "structure",
+          "tunnel"
+        ]
+      ],
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "hsl(0, 28%, 93%)",
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              2
+            ]
+          ]
+        },
+        "line-dasharray": [
+          3,
+          3
+        ],
+        "line-blur": 0,
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              32
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "tunnel-primary-case",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "1460127465037.9006"
+      },
+      "source": "composite",
+      "source-layer": "road",
+      "filter": [
+        "all",
+        [
+          "==",
+          "class",
+          "primary"
+        ],
+        [
+          "==",
+          "structure",
+          "tunnel"
+        ]
+      ],
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "#00f",
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              2
+            ]
+          ]
+        },
+        "line-dasharray": [
+          3,
+          3
+        ],
+        "line-blur": 0,
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              18
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "tunnel-trunk_link-case",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "1460127465037.9006"
+      },
+      "source": "composite",
+      "source-layer": "road",
+      "filter": [
+        "all",
+        [
+          "==",
+          "structure",
+          "tunnel"
+        ],
+        [
+          "==",
+          "type",
+          "trunk_link"
+        ]
+      ],
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "hsl(0, 28%, 93%)",
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              2
+            ]
+          ]
+        },
+        "line-dasharray": [
+          3,
+          3
+        ],
+        "line-blur": 0,
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              32
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "tunnel-motorway_link-case",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "1460127465037.9006"
+      },
+      "source": "composite",
+      "source-layer": "road",
+      "filter": [
+        "all",
+        [
+          "==",
+          "class",
+          "motorway_link"
+        ],
+        [
+          "==",
+          "structure",
+          "tunnel"
+        ]
+      ],
+      "layout": {
+        "line-cap": {
+          "base": 1,
+          "stops": [
+            [
+              10,
+              "round"
+            ],
+            [
+              12,
+              "butt"
+            ]
+          ]
+        },
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "hsla(225, 100%, 50%, 1)",
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              12,
+              0.5
+            ],
+            [
+              16,
+              2
+            ]
+          ]
+        },
+        "line-dasharray": [
+          3,
+          3
+        ],
+        "line-blur": 0,
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              18
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "tunnel-trunk-case",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "1460127465037.9006"
+      },
+      "source": "composite",
+      "source-layer": "road",
+      "filter": [
+        "all",
+        [
+          "==",
+          "class",
+          "trunk"
+        ],
+        [
+          "==",
+          "structure",
+          "tunnel"
+        ]
+      ],
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "hsla(225, 100%, 50%, 1)",
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              16,
+              2
+            ]
+          ]
+        },
+        "line-dasharray": [
+          3,
+          3
+        ],
+        "line-blur": 0,
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              18
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "tunnel-motorway-case",
+      "type": "line",
+      "metadata": {
+        "mapbox:group": "1460127465037.9006"
+      },
+      "source": "composite",
+      "source-layer": "road",
+      "filter": [
+        "all",
+        [
+          "==",
+          "class",
+          "motorway"
+        ],
+        [
+          "==",
+          "structure",
+          "tunnel"
+        ]
+      ],
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "hsla(225, 100%, 50%, 1)",
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              16,
+              2
+            ]
+          ]
+        },
+        "line-dasharray": [
+          3,
+          3
+        ],
+        "line-blur": 0,
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              18
+            ]
+          ]
+        }
+      }
     }
   ]
 }
@@ -32818,25 +33304,36 @@ module.exports.POLAR_RADIUS = 6356752.3142;
 },{}],184:[function(require,module,exports){
 var fs = require('fs');
 var _ = require('underscore-node');
-var style = require('../assets/style-point.json');
+// var style = require('../assets/style-mock_point+line.json');
+// var style = require('../assets/style-test_point+line.json');
+// var style = require('../assets/style-line.json');
+// var style = require('../assets/style-point.json');
+var style = require('../assets/style-point+line.json');
 
 function generate(style) { // creategeojson data file
   var allLayers = style.layers;
   var pointLayers = [];
   var polyLayers = [];
   var lineLayers = [];
-  // starting lng and lat
-  var startLng = -122.6431;
-  var startLat = 48.3543;
-  var minusLat = 3;
-  var newLat;
+  // starting lng and lat for points
+  var startLng_point = -122.6431;
+  var startLat_point = 48.3543;
+  var minusLat_point = 0.5;
+  var newLat_point;
+  // starting lng and lat for linestring
+  var startLng_line1 = -118.3008;  // right side
+  var startLng_line2 = -110.2148;  // right side
+  var startLat_line = 49.8380;  // left side
+  var minusLat_line = -0.5;
+  var newLat_line;
+
   var geojson = {
     "type": "FeatureCollection",
       "features": []
     };
 
   allLayers.forEach(function(layer) { // let's access each layer
-    // if(layer.filter !== undefined) {
+    if(layer.type !== undefined) {
       if(layer.type === 'symbol') { // only for symbols
         pointLayers.push({  // collect type and filter
         'id': layer.id,
@@ -32844,30 +33341,65 @@ function generate(style) { // creategeojson data file
         'source-layer': layer['source-layer']
         });
       }
-      if(layer.type === 'symbol') { // only for lines
-        pointLayers.push({  // collect type and filter
+      if(layer.type === 'line') { // only for lines
+        lineLayers.push({  // collect type and filter
         'id': layer.id,
         'type': layer.type,
         'source-layer': layer['source-layer']
         });
       }
-    // }
+    } else {
+      console.log(layer.id + ' needs to reference layer ' + layer.ref);
+    }
   });
 
+  // add points
   if(pointLayers !== undefined || pointLayers !== null) {
     pointLayers.forEach(function(layer, i) {
-      newLat = startLat - (minusLat * i);
+      // console.log(layer);
+      // console.log('do we have point layers?');
+      newLat_point = startLat_point - (minusLat_point * i);
       feature = {
         'type': 'Feature',
         'geometry': {
           'type': 'Point',
           'coordinates': [
-            startLng,
-            newLat
+            startLng_point,
+            newLat_point
           ]
         },
         'properties': {
           'name': layer.id,
+          'element': layer.id,
+          'category': layer['source-layer']
+        }
+      };
+      geojson.features.push(feature);
+    });
+    // return geojson;
+  }
+  // add lines
+  if(lineLayers !== undefined || lineLayers !== null) {
+    lineLayers.forEach(function(layer, i) {
+      // console.log(layer);// + ' does this have a line-width ' + layer['line-width']);
+      newLat_line = startLat_line + (minusLat_line * i);
+      feature = {
+        'type': 'Feature',
+        'geometry': {
+          'type': 'LineString',
+          'coordinates': [
+            [
+              startLng_line1,
+              newLat_line
+            ],
+            [
+              startLng_line2,
+              newLat_line
+            ]
+          ]
+        },
+        'properties': {
+          'element': layer.id,
           'category': layer['source-layer']
         }
       };
@@ -32879,38 +33411,47 @@ function generate(style) { // creategeojson data file
 
 module.exports = generate;
 
-},{"../assets/style-point.json":1,"fs":3,"underscore-node":171}],185:[function(require,module,exports){
+},{"../assets/style-point+line.json":1,"fs":3,"underscore-node":171}],185:[function(require,module,exports){
 var fs = require('fs');
 var mapboxgl = require('mapbox-gl');
 var generate = require('./generate.js');
-var style = require('../assets/style-point.json');
+// var style = require('../assets/style-mock_point+line.json');
+// var style = require('../assets/style-test_point+line.json');
+// var style = require('../assets/style-line.json');
+var style = require('../assets/style-point+line.json');
+// var style = require('../assets/style-line.json');
 
 // generate new data from style.json
-var pointdata = generate(style);
+var generate_data = generate(style);
 // modify the style's sources object
 style.sources = {
   'newdata': {
     'type': 'geojson',
-    'data': pointdata
+    'data': generate_data
   }
 };
 // change all the layer refs to the new data source
 style.layers.forEach(function(layer) {
   if(layer.source !== undefined) {
     delete layer['source-layer'];
-    delete layer.filter;
+    layer.filter = [
+      '==',
+      'element',
+      layer.id
+    ];
     layer.source = 'newdata';
   }
 });
 
-console.log(style);
+// console.log(generate_data.features);
+// console.log(style);
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg';
 var map = new mapboxgl.Map({
   container: 'map',
   style: style,
   hash: true,
-  zoom: 3,
-  center: [-102.30,33.43]
+  zoom: 4.73,
+  center: [-110.9757,47.949]
 });
-},{"../assets/style-point.json":1,"./generate.js":184,"fs":3,"mapbox-gl":72}]},{},[184,185]);
+},{"../assets/style-point+line.json":1,"./generate.js":184,"fs":3,"mapbox-gl":72}]},{},[184,185]);

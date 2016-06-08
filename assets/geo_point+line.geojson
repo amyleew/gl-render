@@ -1,0 +1,269 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.6431,
+          48.3543
+        ]
+      },
+      "properties": {
+        "name": "state-label-sm",
+        "category": "state_label"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.6431,
+          48.2543
+        ]
+      },
+      "properties": {
+        "name": "state-label-md",
+        "category": "state_label"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.6431,
+          48.1543
+        ]
+      },
+      "properties": {
+        "name": "state-label-lg",
+        "category": "state_label"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.6431,
+          48.054300000000005
+        ]
+      },
+      "properties": {
+        "name": "country-label-sm",
+        "category": "country_label"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.6431,
+          47.9543
+        ]
+      },
+      "properties": {
+        "name": "country-label-md",
+        "category": "country_label"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.6431,
+          47.8543
+        ]
+      },
+      "properties": {
+        "name": "country-label-lg",
+        "category": "country_label"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -118.3008,
+            49.838
+          ],
+          [
+            -110.2148,
+            49.838
+          ]
+        ]
+      },
+      "properties": {
+        "name": "tunnel-secondary-tertiary case",
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -118.3008,
+            50.838
+          ],
+          [
+            -110.2148,
+            50.838
+          ]
+        ]
+      },
+      "properties": {
+        "name": "tunnel-street_limited case",
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -118.3008,
+            51.838
+          ],
+          [
+            -110.2148,
+            51.838
+          ]
+        ]
+      },
+      "properties": {
+        "name": "tunnel-street case",
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -118.3008,
+            52.838
+          ],
+          [
+            -110.2148,
+            52.838
+          ]
+        ]
+      },
+      "properties": {
+        "name": "tunnel-primary-case",
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -118.3008,
+            53.838
+          ],
+          [
+            -110.2148,
+            53.838
+          ]
+        ]
+      },
+      "properties": {
+        "name": "tunnel-trunk_link-case",
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -118.3008,
+            54.838
+          ],
+          [
+            -110.2148,
+            54.838
+          ]
+        ]
+      },
+      "properties": {
+        "name": "tunnel-motorway_link-case",
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -118.3008,
+            55.838
+          ],
+          [
+            -110.2148,
+            55.838
+          ]
+        ]
+      },
+      "properties": {
+        "name": "tunnel-trunk-case",
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -118.3008,
+            56.838
+          ],
+          [
+            -110.2148,
+            56.838
+          ]
+        ]
+      },
+      "properties": {
+        "name": "tunnel-motorway-case",
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -118.3008,
+            57.838
+          ],
+          [
+            -110.2148,
+            57.838
+          ]
+        ]
+      },
+      "properties": {
+        "name": "tunnel-path",
+        "category": "road"
+      }
+    }
+  ]
+}
