@@ -2,8 +2,10 @@
   position:absolute;
   top:0;
   bottom:0;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  width: 750px;
-  height: 450px;
+  width: 100%;
+}
+
+#body {
+  margin: 0;
+  padding: 0;
 }

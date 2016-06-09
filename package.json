@@ -16,6 +16,8 @@
     "watchify": "^3.7.0"
   },
   "dependencies": {
-    "mapbox-gl": "^0.18.0"
+    "geojsonhint": "^1.2.1",
+    "mapbox-gl": "^0.18.0",
+    "underscore": "^1.8.3"
   }
 }
