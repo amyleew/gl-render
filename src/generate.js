@@ -1,14 +1,8 @@
 var fs = require('fs');
-// var _ = require('underscore-node'); // server-side only (console)
 var _ = require('underscore'); // client-side only (browsers)
 
 // styles to turn into data
-var style = require('../assets/style-mock_point+line.json');
-// var style = require('../assets/style-test_point+line.json');
-// var style = require('../assets/style-line.json');
-// var style = require('../assets/style-point.json');
-// var style = require('../assets/style-point+line.json');
-// var style = require('../assets/just-refs.json');
+var style = require('../assets/geom.json');
 
 function generate(style) { // creategeojson data file
   var allLayers = style.layers;
@@ -26,6 +20,17 @@ function generate(style) { // creategeojson data file
   var startLat_line = 49.8380;  // left side
   var minusLat_line = -0.5;
   var newLat_line;
+  // starting lng and lat for linestring
+  var polyLng1 = -108.6328;  // same on top and bottom end coords
+  var polyLat1 = 48.2832;  // same as lat4
+  var polyLat2 = 50.9584;  // same as lat3
+  var polyLng2 = -104.0625; // same as lng4
+  var newPolyLng1;
+  var newPolyLat1;
+  var newPolyLat2;
+  var plusPolyLng1 = -0.7031; // add
+  var minusPolyLat1 = 1.4832; // subtract
+  var minusPolyLat2 = 1.5819; // subtract
 
   var geojson = {
     "type": "FeatureCollection",
@@ -48,6 +53,13 @@ function generate(style) { // creategeojson data file
           'source-layer': layer['source-layer']
         });
       }
+      if(layer.type === 'fill') { // only for polygons
+        polyLayers.push({  // collect type and filter
+          'id': layer.id,
+          'type': layer.type,
+          'source-layer': layer['source-layer']
+        });
+      }
     } else {
       if(layer.ref) {
         var allLayersIndexbyRef = _.indexBy(allLayers, 'id'); // find a layer from all the layers from its id
@@ -61,6 +73,13 @@ function generate(style) { // creategeojson data file
         }
         if(refLayer.type === 'line') { // only for lines
           lineLayers.push({  // collect type and filter
+            'id': layer.id,
+            'type': refLayer.type,
+            'source-layer': refLayer['source-layer']
+          });
+        }
+        if(refLayer.type === 'fill') { // only for polygons
+          polyLayers.push({  // collect type and filter
             'id': layer.id,
             'type': refLayer.type,
             'source-layer': refLayer['source-layer']
@@ -92,7 +111,6 @@ function generate(style) { // creategeojson data file
       };
       geojson.features.push(feature);
     });
-    // return geojson;
   }
   // add lines
   if(lineLayers !== undefined || lineLayers !== null) {
@@ -121,8 +139,51 @@ function generate(style) { // creategeojson data file
       };
       geojson.features.push(feature);
     });
-    return geojson;
+  // add polygons
+  if(polyLayers !== undefined || polyLayers !== null) {
+    polyLayers.forEach(function(layer, i) {
+      console.log('we have polys');
+      newPolyLng1 = polyLng1 + (plusPolyLng1 * i);
+      newPolyLat1 = polyLat1 - (minusPolyLat1 * i);
+      newPolyLat2 = polyLat2 - (minusPolyLat2 * i);
+      feature = {
+        'type': 'Feature',
+        'geometry': {
+          'type': 'Polygon',
+          'coordinates': [
+            [
+              [
+                newPolyLng1,
+                newPolyLat1
+              ],
+              [
+                newPolyLng1,
+                newPolyLat2
+              ],
+              [
+                polyLng2,
+                newPolyLat2
+              ],
+              [
+                polyLng2,
+                newPolyLat1
+              ],
+              [
+                newPolyLng1,
+                newPolyLat1
+              ]
+            ]
+          ]
+        },
+        'properties': {
+          'element': layer.id,
+          'category': layer['source-layer']
+          }
+        };
+        geojson.features.push(feature);
+      });
+      return geojson;
+    }
   }
 }
-
 module.exports = generate;

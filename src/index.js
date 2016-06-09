@@ -3,13 +3,7 @@ var mapboxgl = require('mapbox-gl');
 var generate = require('./generate.js');
 
 // styles to turn into data
-var style = require('../assets/style-mock_point+line.json');
-// var style = require('../assets/style-test_point+line.json');
-// var style = require('../assets/style-line.json');
-// var style = require('../assets/style-point+line.json');
-// var style = require('../assets/style-line.json');
-// var style = require('../assets/just-refs.json');
-
+var style = require('../assets/geom.json');
 
 // generate new data from style.json
 var generate_data = generate(style);
@@ -36,8 +30,8 @@ style.layers.forEach(function(layer) {
   }
 });
 
-// console.log(generate_data.features);
-// console.log(style);
+console.log(generate_data.features);
+console.log(style);
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg';
 var map = new mapboxgl.Map({
