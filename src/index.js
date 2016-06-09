@@ -1,11 +1,15 @@
 var fs = require('fs');
 var mapboxgl = require('mapbox-gl');
 var generate = require('./generate.js');
-// var style = require('../assets/style-mock_point+line.json');
+
+// styles to turn into data
+var style = require('../assets/style-mock_point+line.json');
 // var style = require('../assets/style-test_point+line.json');
 // var style = require('../assets/style-line.json');
-var style = require('../assets/style-point+line.json');
+// var style = require('../assets/style-point+line.json');
 // var style = require('../assets/style-line.json');
+// var style = require('../assets/just-refs.json');
+
 
 // generate new data from style.json
 var generate_data = generate(style);
@@ -20,6 +24,9 @@ style.sources = {
 style.layers.forEach(function(layer) {
   if(layer.source !== undefined) {
     delete layer['source-layer'];
+    delete layer.minzoom;
+    delete layer.maxzoom;
+    // delete layer.filter;
     layer.filter = [
       '==',
       'element',

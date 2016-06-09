@@ -1,10 +1,14 @@
 var fs = require('fs');
-var _ = require('underscore-node');
-// var style = require('../assets/style-mock_point+line.json');
+// var _ = require('underscore-node'); // server-side only (console)
+var _ = require('underscore'); // client-side only (browsers)
+
+// styles to turn into data
+var style = require('../assets/style-mock_point+line.json');
 // var style = require('../assets/style-test_point+line.json');
 // var style = require('../assets/style-line.json');
 // var style = require('../assets/style-point.json');
-var style = require('../assets/style-point+line.json');
+// var style = require('../assets/style-point+line.json');
+// var style = require('../assets/just-refs.json');
 
 function generate(style) { // creategeojson data file
   var allLayers = style.layers;
@@ -32,28 +36,44 @@ function generate(style) { // creategeojson data file
     if(layer.type !== undefined) {
       if(layer.type === 'symbol') { // only for symbols
         pointLayers.push({  // collect type and filter
-        'id': layer.id,
-        'type': layer.type,
-        'source-layer': layer['source-layer']
+          'id': layer.id,
+          'type': layer.type,
+          'source-layer': layer['source-layer']
         });
       }
       if(layer.type === 'line') { // only for lines
         lineLayers.push({  // collect type and filter
-        'id': layer.id,
-        'type': layer.type,
-        'source-layer': layer['source-layer']
+          'id': layer.id,
+          'type': layer.type,
+          'source-layer': layer['source-layer']
         });
       }
     } else {
-      console.log(layer.id + ' needs to reference layer ' + layer.ref);
+      if(layer.ref) {
+        var allLayersIndexbyRef = _.indexBy(allLayers, 'id'); // find a layer from all the layers from its id
+        var refLayer = allLayersIndexbyRef[layer.ref];
+        if(refLayer.type === 'symbol') { // only for symbols
+          pointLayers.push({  // collect type and filter
+            'id': layer.id,
+            'type': refLayer.type,
+            'source-layer': refLayer['source-layer']
+          });
+        }
+        if(refLayer.type === 'line') { // only for lines
+          lineLayers.push({  // collect type and filter
+            'id': layer.id,
+            'type': refLayer.type,
+            'source-layer': refLayer['source-layer']
+          });
+        }
+      }
     }
   });
 
   // add points
   if(pointLayers !== undefined || pointLayers !== null) {
     pointLayers.forEach(function(layer, i) {
-      // console.log(layer);
-      // console.log('do we have point layers?');
+      console.log('we have points');
       newLat_point = startLat_point - (minusLat_point * i);
       feature = {
         'type': 'Feature',
@@ -77,7 +97,7 @@ function generate(style) { // creategeojson data file
   // add lines
   if(lineLayers !== undefined || lineLayers !== null) {
     lineLayers.forEach(function(layer, i) {
-      // console.log(layer);// + ' does this have a line-width ' + layer['line-width']);
+      console.log('we have lines');
       newLat_line = startLat_line + (minusLat_line * i);
       feature = {
         'type': 'Feature',
