@@ -32590,7 +32590,7 @@ function generate(style) { // creategeojson data file
   // add points
   if(pointLayers !== undefined || pointLayers !== null) {
     pointLayers.forEach(function(layer, i) {
-      console.log('we have points');
+      // console.log('we have points');
       newLat_point = startLat_point - (minusLat_point * i);
       feature = {
         'type': 'Feature',
@@ -32613,7 +32613,7 @@ function generate(style) { // creategeojson data file
   // add lines
   if(lineLayers !== undefined || lineLayers !== null) {
     lineLayers.forEach(function(layer, i) {
-      console.log('we have lines');
+      // console.log('we have lines');
       newLat_line = startLat_line + (minusLat_line * i);
       feature = {
         'type': 'Feature',
@@ -32640,7 +32640,7 @@ function generate(style) { // creategeojson data file
   // add polygons
   if(polyLayers !== undefined || polyLayers !== null) {
     polyLayers.forEach(function(layer, i) {
-      console.log('we have polys');
+      // console.log('we have polys');
       newPolyLng1 = polyLng1 + (plusPolyLng1 * i);
       newPolyLat1 = polyLat1 - (minusPolyLat1 * i);
       newPolyLat2 = polyLat2 - (minusPolyLat2 * i);
@@ -32758,10 +32758,7 @@ function addMap() {
         hideForm.className = 'hidden';
         showMap.className = '';
 
-        console.log('did this happen?');
-
-      //   }
-      // });
+      // console.log('did this happen?');
       // console.log(generate_data.features);
       // console.log(style);
 

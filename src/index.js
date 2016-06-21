@@ -68,10 +68,7 @@ function addMap() {
         hideForm.className = 'hidden';
         showMap.className = '';
 
-        console.log('did this happen?');
-
-      //   }
-      // });
+      // console.log('did this happen?');
       // console.log(generate_data.features);
       // console.log(style);
 
