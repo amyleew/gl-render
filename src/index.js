@@ -19,7 +19,7 @@ button.addEventListener('click', function() {
       var styleJSON = 'https://api.mapbox.com/styles/v1/' + user + '/' + styleID + '?access_token=' + accessToken;
       loadJSON(styleJSON,
          function(styleParse) {
-          console.log('but we do have ' + styleParse);
+          // console.log('but we do have ' + styleParse);
           style = styleParse;
           addMap(style);
         },
@@ -70,7 +70,7 @@ function addMap() {
 
       // console.log('did this happen?');
       // console.log(generate_data.features);
-      // console.log(style);
+      console.log(style);
 
       mapboxgl.accessToken = 'pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg';
       var map = new mapboxgl.Map({
