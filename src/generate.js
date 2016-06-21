@@ -1,8 +1,6 @@
 var fs = require('fs');
 var _ = require('underscore'); // client-side only (browsers)
-
-// styles to turn into data
-var style = require('../assets/_gl-styles/streets-v9.json');
+var style = require('./index.js'); //
 
 function generate(style) { // creategeojson data file
   var allLayers = style.layers;
@@ -186,4 +184,5 @@ function generate(style) { // creategeojson data file
     }
   }
 }
+
 module.exports = generate;

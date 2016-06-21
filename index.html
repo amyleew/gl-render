@@ -1,16 +1,40 @@
 <!doctype html>
 
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Style Guide</title>
-  <meta name="description" content="Style guide">
-  <script src='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.js'></script>
-  <link href='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.css' rel='stylesheet' />
-  <link href='style.css' rel='stylesheet' />
-</head>
-<body>
-  <div id='map'></div>
-  <script src="bundle.js"></script>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <title>Style Guide - upload your style</title>
+    <meta name="description" content="Style guide">
+    <link href='https://www.mapbox.com/base/latest/base.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.css' rel='stylesheet' />
+    <link href='style.css' rel='stylesheet' />
+  </head>
+  <body>
+  <h3 class='fancy pad2'>StyleGuide Generator</h3>
+    <div id='theForm' class='pad2 clearfix contain'>
+      <form>
+        <fieldset>
+          <label>Enter your username</label>
+          <input type='text' id='user' value='' />
+        </fieldset>
+
+        <fieldset>
+          <label>Enter your styleID</label>
+          <input type='text' id='styleID' value='' />
+        </fieldset>
+
+        <fieldset>
+          <label>Enter your access token</label>
+          <input type='text' id='accessToken' value='' />
+        </fieldset>
+
+        <input class='button' id='theButton' type='button' value='Submit'>
+      </form>
+    </div>
+
+    <div id='map' class='hidden'></div>
+
+    <script src="bundle.js"></script>
+  </body>
 </html>
