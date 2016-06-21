@@ -2,7 +2,7 @@ var fs = require('fs');
 var _ = require('underscore'); // client-side only (browsers)
 
 // styles to turn into data
-var style = require('../assets/geom.json');
+var style = require('../assets/_gl-styles/streets-v9.json');
 
 function generate(style) { // creategeojson data file
   var allLayers = style.layers;

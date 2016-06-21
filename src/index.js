@@ -3,7 +3,7 @@ var mapboxgl = require('mapbox-gl');
 var generate = require('./generate.js');
 
 // styles to turn into data
-var style = require('../assets/geom.json');
+var style = require('../assets/_gl-styles/streets-v9.json');
 
 // generate new data from style.json
 var generate_data = generate(style);
@@ -27,10 +27,13 @@ style.layers.forEach(function(layer) {
       layer.id
     ];
     layer.source = 'newdata';
+    if(layer.type == 'symbol') { // style names
+      layer.layout['text-field'] = layer.id;
+    }
   }
 });
 
-console.log(generate_data.features);
+// console.log(generate_data.features);
 console.log(style);
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg';
