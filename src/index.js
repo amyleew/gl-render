@@ -28,61 +28,57 @@ button.addEventListener('click', function() {
     }
   });
 
+// now generate the new style.json
 function addMap() {
-
-      // if(style !== undefined) {
-        // console.log(style);
-        // run function only when we have all the values
-        var generate = require('./generate.js');
-
-        // generate new data from style.json
-        var generate_data = generate(style);
-        // modify the style's sources object
-        style.sources = {
-          'newdata': {
-            'type': 'geojson',
-            'data': generate_data
-          }
-        };
-        // change all the layer refs to the new data source
-        style.layers.forEach(function(layer) {
-          if(layer.source !== undefined) {
-            delete layer['source-layer'];
-            delete layer.minzoom;
-            delete layer.maxzoom;
-            // delete layer.filter;
-            layer.filter = [
-              '==',
-              'element',
-              layer.id
-            ];
-            layer.source = 'newdata';
-            if(layer.type == 'symbol') { // style names
-              layer.layout['text-field'] = layer.id;
-            }
-          }
-        });
-
-        var hideForm = document.getElementById('theForm');
-        var showMap = document.getElementById('map');
-        hideForm.className = 'hidden';
-        showMap.className = '';
-
-      // console.log('did this happen?');
-      // console.log(generate_data.features);
-      console.log(style);
-
-      mapboxgl.accessToken = accessToken;
-      var map = new mapboxgl.Map({
-        container: 'map',
-        style: style,
-        hash: true,
-        zoom: 4.73,
-        center: [-110.9757,47.949]
-      });
+  // run function only when we have all the values
+  var generate = require('./generate.js');
+  // generate new data from style.json
+  var generate_data = generate(style);
+  // modify the style's sources object
+  style.sources = {
+    'newdata': {
+      'type': 'geojson',
+      'data': generate_data
+    }
+  };
+  // change all the layer refs to the new data source
+  style.layers.forEach(function(layer) {
+    if(layer.source !== undefined) {
+      delete layer['source-layer'];
+      delete layer.minzoom;
+      delete layer.maxzoom;
+      // delete layer.filter;
+      layer.filter = [
+        '==',
+        'element',
+        layer.id
+      ];
+      layer.source = 'newdata';
+      if(layer.type == 'symbol') { // style names
+        layer.layout['text-field'] = layer.id;
       }
+    }
+  });
 
+  var hideForm = document.getElementById('theForm');
+  var showMap = document.getElementById('map');
+  hideForm.className = 'hidden';
+  showMap.className = '';
+  // console.log('did this happen?');
+  // console.log(generate_data.features);
+  console.log(style);
 
+  mapboxgl.accessToken = accessToken;
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: style,
+    hash: true,
+    zoom: 4.73,
+    center: [-110.9757,47.949]
+  });
+}
+
+// read style.json url
 function loadJSON(path, success, error)
 {
     var xhr = new XMLHttpRequest();
