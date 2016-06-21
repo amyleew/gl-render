@@ -72,7 +72,7 @@ function addMap() {
       // console.log(generate_data.features);
       console.log(style);
 
-      mapboxgl.accessToken = 'pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg';
+      mapboxgl.accessToken = accessToken;
       var map = new mapboxgl.Map({
         container: 'map',
         style: style,
