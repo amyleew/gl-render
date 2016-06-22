@@ -32718,7 +32718,7 @@ button.addEventListener('click', function() {
     }
   });
 
-// now generate the new style.json
+// now generate the new map style
 function addMap() {
   // run function only when we have all the values
   var generate = require('./generate.js');
@@ -32752,20 +32752,33 @@ function addMap() {
 
   var hideForm = document.getElementById('theForm');
   var showMap = document.getElementById('map');
+  var showSlider = document.getElementById('slider');
   hideForm.className = 'hidden';
   showMap.className = '';
+  showSlider.className = 'center';
   // console.log('did this happen?');
   // console.log(generate_data.features);
-  console.log(style);
+  // console.log(style);
 
   mapboxgl.accessToken = accessToken;
   var map = new mapboxgl.Map({
     container: 'map',
     style: style,
     hash: true,
-    zoom: 4.73,
+    zoom: 5,
     center: [-110.9757,47.949]
   });
+
+  // add slider control for zoom
+  map.scrollZoom.disable();
+  var slider = document.getElementById('zoomSlide');
+  var movement = document.getElementById('zoomSlide').value;
+  slider.addEventListener('mouseup', moveZoom);
+
+  // zoom to slider
+  function moveZoom() {
+    map.setZoom(document.getElementById('zoomSlide').value);
+  }
 }
 
 // read style.json url
