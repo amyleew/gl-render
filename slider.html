@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link href='https://www.mapbox.com/base/latest/base.css' rel='stylesheet' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.20.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.20.1/mapbox-gl.css' rel='stylesheet' />
+    <link href='slider.css' rel='stylesheet' />
+</head>
+<body>
+
+  <div id='slider' class='center' >
+    <fieldset>
+      <input id='zoomSlide' type='range' value='5' min='0' max='22' step='1'>
+    </fieldset>
+  </div>
+
+<div id="map"></div>
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg';
+var map = new mapboxgl.Map({
+    container: 'map', // container id
+    style: 'mapbox://styles/mslee/ciellcr9y001g5pknxuqwjhqm/', //stylesheet location
+    center: [-74.50, 40], // starting position
+    zoom: 5, // starting zoom
+    hash: true
+});
+map.scrollZoom.disable();
+
+var slider = document.getElementById('zoomSlide');
+var movement = document.getElementById('zoomSlide').value;
+
+slider.addEventListener('mouseup', moveZoom);
+
+function moveZoom() {
+  console.log(document.getElementById('zoomSlide').value);
+  map.setZoom(document.getElementById('zoomSlide').value);
+}
+
+</script>
+
+</body>
+</html>
